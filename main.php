@@ -12,15 +12,21 @@ $clearBoard = new GameBoard();
 $clearBoard->get();
 
 $C = 67;
-$F = 70;
+$E = 69;
+$J = 65;
+$ERR = 74;
 
 $ship1 = new Ship ($C, 4, 2, 0);
-$ship2 = new Ship ($F, 2, 4, 0);
-$ship3 = new Ship ($F, 6, 3, 1);
+$ship2 = new Ship ($E, 1, 4, 0);
+$ship3 = new Ship ($E, 6, 2, 1);
+$ship4 = new Ship ($J, 10, 1, 1);
+$badShip = new Ship($ERR, 1, 4, 0);
 
 $clearBoard->addShip($ship1);
 $clearBoard->addShip($ship2);
 $clearBoard->addShip($ship3);
+$clearBoard->addShip($ship4);
+$clearBoard->addShip($badShip);
 
 
 
