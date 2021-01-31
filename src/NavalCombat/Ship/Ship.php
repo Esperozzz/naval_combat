@@ -116,7 +116,6 @@ class Ship
             $this->endPointY = ($this->startPointY + $this->size) - 1;
             $this->endPointX = $this->startPointX;
         } else {
-            //X_ORIENTATION
             $this->endPointX = ($this->startPointX + $this->size) - 1;
             $this->endPointY = $this->startPointY;
         }
