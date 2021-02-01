@@ -17,7 +17,7 @@ class Dockyard
     private $size;
     private $orientation;
     
-    private $cells = [];
+    private $decks = [];
 
     public function __construct()
     {
@@ -27,7 +27,7 @@ class Dockyard
     public function constructShip($startY, $startX, $size, $orientation)
     {
         $this->prepareShip($startY, $startX, $size, $orientation);
-        return new Ship($this->cells);
+        return new Ship($this->decks);
     }
 
     private function prepareShip($startY, $startX, $size, $orientation)
@@ -53,9 +53,9 @@ class Dockyard
     private function makeByY(): void
     {
         if ($this->sizePointsIsCorrect()) {
-            for ($i = $this->startPointY, $cellKey = 0; $i <= $this->endPointY; $i++, $cellKey++) {
-                $this->cells[$cellKey]['row'] = $i;
-                $this->cells[$cellKey]['col'] = $this->startPointX;
+            for ($i = $this->startPointY, $deckKey = 0; $i <= $this->endPointY; $i++, $deckKey++) {
+                $this->decks[$deckKey]['row'] = $i;
+                $this->decks[$deckKey]['col'] = $this->startPointX;
             }
         }
     }
@@ -66,9 +66,9 @@ class Dockyard
     private function makeByX(): void
     {
         if ($this->sizePointsIsCorrect()) {
-            for ($i = $this->startPointX, $cellKey = 0; $i <= $this->endPointX; $i++, $cellKey++) {
-                $this->cells[$cellKey]['row'] = $this->startPointY;
-                $this->cells[$cellKey]['col'] = $i;
+            for ($i = $this->startPointX, $deckKey = 0; $i <= $this->endPointX; $i++, $deckKey++) {
+                $this->decks[$deckKey]['row'] = $this->startPointY;
+                $this->decks[$deckKey]['col'] = $i;
             }
         }
     }
