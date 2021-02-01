@@ -34,7 +34,7 @@ class GameBoard
      */
     public function addShip(Ship $ship): void
     {
-        foreach ($ship->make() as $cell) {
+        foreach ($ship->get() as $cell) {
             $this->setCell($cell['row'], $cell['col']);
         }
     }
