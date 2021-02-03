@@ -2,5 +2,5 @@
 
 class Destroyer extends Ship
 {
-    private $size = 2;
+    protected $size = 2;
 }
