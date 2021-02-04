@@ -7,12 +7,12 @@ class Ship
     
     protected $size;
     
-    public function __construct($decks)
+    public function __construct(array $decks)
     {
         $this->decks = $decks;
     }
 
-    public function get()
+    public function get(): array
     {
         return $this->decks;
     }

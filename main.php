@@ -31,20 +31,24 @@ $dock2 = new Dockyard($options2);
 $view = new View();
 
 $ship11 = $dock1->constructShip($C, 4, 2, 0);
+$boardOne->addShip($ship11);
+
+/*
+
 $ship21 = $dock1->constructShip($E, 1, 4, 0);
 $ship31 = $dock1->constructShip($E, 6, 2, 1);
 $ship41 = $dock1->constructShip($J, 10, 1, 1);
-//$badShip1 = $dock1->constructShip($ERR, 1, 4, 0);
+$badShip1 = $dock1->constructShip($ERR, 1, 4, 0);
 
 
-$boardOne->addShip($ship11);
+
 $boardOne->addShip($ship21);
 $boardOne->addShip($ship31);
 $boardOne->addShip($ship41);
-//$boardOne->addShip($badShip1);
+$boardOne->addShip($badShip1);
+*/
 
-
-
+/*
 $ship12 = $dock2->constructShip(65, 9, 2, 0);
 $ship22 = $dock2->constructShip($E, 1, 4, 0);
 $ship32 = $dock2->constructShip($E, 6, 2, 1);
@@ -52,12 +56,14 @@ $ship32 = $dock2->constructShip($E, 6, 2, 1);
 $boardTwo->addShip($ship12);
 $boardTwo->addShip($ship22);
 $boardTwo->addShip($ship32);
-
+*/
+/*
 for ($i = $C - 1, $k = 3; $i < $J; $i++, $k++) {
     if (!$boardOne->addFire($i, $k)) {
         throw new Exception('Fire past the game board');
     }
 }
+*/
 
 $x = '';
 $y = '';

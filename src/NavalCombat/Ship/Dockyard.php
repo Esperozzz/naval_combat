@@ -5,7 +5,7 @@ class Dockyard
     private const Y_ORIENTATION = 1;
     private const X_ORIENTATION = 0;
     
-    private const BOT_SIZE = 1;
+    private const BOAT_SIZE = 1;
     private const DESTROYER_SIZE = 2;
     private const CRUISER_SIZE = 3;
     private const BATTLESHIP_SIZE = 4;
@@ -16,8 +16,6 @@ class Dockyard
     private $endPointX;
     private $size;
     private $orientation;
-    
-    private $decks = [];
 
     private $boardOptions;
 
@@ -29,34 +27,52 @@ class Dockyard
     /**
      * Создает необходимый тип корабля
      */
-    public function constructShip($startY, $startX, $size, $orientation)
+    public function constructShip($startY, $startX, $size, $orientation): Ship
     {
-        $this->prepareShip($startY, $startX, $size, $orientation);
-        $shipType = null;
-        switch ($size) {
-            case (self::BOT_SIZE):
-                $shipType = new Boat($this->decks);
-                break;
-            case (self::DESTROYER_SIZE):
-                $shipType = new Destroyer($this->decks);
-                break;
-            case (self::CRUISER_SIZE):
-                $shipType = new Cruiser($this->decks);
-                break;
-            case (self::BATTLESHIP_SIZE):
-                $shipType = new Battleship($this->decks);
-                break;
-        }
-        //Очищаем данные о ячейках корабля
-        $this->decks = [];
+        $decks = $this->prepareShip($startY, $startX, $size, $orientation);
         
-        return $shipType;
+        $shadow = $this->prepareShadow($decks);
+        
+        switch ($size) {
+            case (self::BOAT_SIZE):
+                return new Boat($decks);
+            case (self::DESTROYER_SIZE):
+                return new Destroyer($decks);
+            case (self::CRUISER_SIZE):
+                return new Cruiser($decks);
+            case (self::BATTLESHIP_SIZE):
+                return new Battleship($decks);
+            default:
+                return null;
+        }
+    }
+
+    public function prepareShadow(array $shipDecks)
+    {
+        $firstKey = 0;
+        $lastKey = count($shipDecks) - 1;
+        print_r($shipDecks);
+        $startShadowY = $shipDecks[$firstKey]['y'] - 1;
+        $startShadowX = $shipDecks[$firstKey]['x'] - 1;
+        $endShadowY = $shipDecks[$lastKey]['y'] + 1;
+        $endShadowX = $shipDecks[$lastKey]['x'] + 1;
+        
+        
+        
+        echo $startShadowY . PHP_EOL;
+        echo $startShadowX . PHP_EOL;
+        echo $endShadowY . PHP_EOL;
+        echo $endShadowX . PHP_EOL;
+
+
+        print_r($shadow);
+        
     }
 
     /**
      * Подготавливает данные для созлания корабля
      */
-    private function prepareShip($startY, $startX, $size, $orientation)
+    private function prepareShip($startY, $startX, $size, $orientation): array
     {
         $this->startPointY = $startY;
         $this->startPointX = $startX;
@@ -66,43 +82,49 @@ class Dockyard
         $this->defineMaxSize();
         
         if ($orientation === self::Y_ORIENTATION) {
-            $this->makeByY();
+            return $this->makeByY();
         } else {
-            $this->makeByX();
+            return $this->makeByX();
         }
         
     }
 
     /**
-     * Создает поля для корабля по вертикали (ось Y)
+     * Возвращает поля для корабля по вертикали (ось Y)
      */
-    private function makeByY(): void
+    private function makeByY(): array
     {
+        $decks = [];
+        
         if ($this->sizePointsIsCorrect()) {
             for ($i = $this->startPointY, $deckKey = 0; $i <= $this->endPointY; $i++, $deckKey++) {
-                $this->decks[$deckKey]['y'] = $i;
-                $this->decks[$deckKey]['x'] = $this->startPointX;
+                $decks[$deckKey]['y'] = $i;
+                $decks[$deckKey]['x'] = $this->startPointX;
             }
         }
+        
+        return $decks;
     }
     
     /**
-     * Создает поля для корабля по горизонтали (ось X)
+     * Возвращает поля для корабля по горизонтали (ось X)
      */
-    private function makeByX(): void
+    private function makeByX(): array
     {
+        $decks = [];
+        
         if ($this->sizePointsIsCorrect()) {
             for ($i = $this->startPointX, $deckKey = 0; $i <= $this->endPointX; $i++, $deckKey++) {
-                $this->decks[$deckKey]['y'] = $this->startPointY;
-                $this->decks[$deckKey]['x'] = $i;
+                $decks[$deckKey]['y'] = $this->startPointY;
+                $decks[$deckKey]['x'] = $i;
             }
         }
+        
+        return $decks;
     }
 
     /**
      * Проверяет корректность начальной и конечной точек корабля
-     *
-     * @return bool
      */
     private function sizePointsIsCorrect(): bool
     {
@@ -111,8 +133,6 @@ class Dockyard
 
     /**
      * Проверяет на корректность начальной точки корабля
-     *
-     * @return bool
      */
     private function isFirstPoint(): bool
     {
@@ -122,8 +142,6 @@ class Dockyard
 
     /**
      * Проверяет на корректность конечной точки корабля
-     *
-     * @return bool
      */
     private function isLastPoint(): bool
     {
