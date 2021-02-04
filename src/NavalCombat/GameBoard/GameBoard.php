@@ -8,8 +8,8 @@ class GameBoard
     private const BOAT_LIMIT = 4;
     
     private const Y_LOW_BOUND = 65;
-    private const Y_UP_BOUND = 74;
     private const X_LOW_BOUND = 1;
+    private const Y_UP_BOUND = 74;
     private const X_UP_BOUND = 10;
     
     private const EMPTY_CELL = '.';
@@ -17,9 +17,11 @@ class GameBoard
     private const DESTROY_CELL = 'X';
     private const MISS_CELL = 'o';
     
+    private $board = [];
+    
     private $ships = [];
-    private $missed = [];
-    private $damaged = [];
+    private $miss = [];
+    private $damage = [];
     
     public function __construct()
     {
@@ -37,6 +39,19 @@ class GameBoard
     public function get(): array
     {
         return $this->board;
+    }
+    
+    /**
+     * Получить размеры игровой доски
+     */
+    public function getOptions(): GameBoardOptions
+    {
+        return new GameBoardOptions(
+            self::Y_LOW_BOUND,
+            self::X_LOW_BOUND,
+            self::Y_UP_BOUND,
+            self::X_UP_BOUND
+        );
     }
     
     /**
@@ -79,6 +94,34 @@ class GameBoard
         }
     }
     
+    public function addFire($y, $x): bool
+    {
+        //Временно исправит работу
+        $this->update();
+        
+        switch ($this->board[$y][$x]) {
+            case (self::SHIP_CELL):
+                $this->addDamage($y, $x);
+                return true;
+            case (self::EMPTY_CELL):
+                $this->addMiss($y, $x);
+                return true;
+            default:
+                return false;
+                
+        }
+    }
+    
+    private function addDamage($y, $x)
+    {
+        $this->damage[] = ['y' => $y, 'x' => $x];
+    }
+    
+    private function addMiss($y, $x)
+    {
+        $this->miss[] = ['y' => $y, 'x' => $x];
+    }
+    
     private function shipLimitedNotExceeded(array $shipArr, int $maxLimit): bool
     {
         if (count($shipArr) < $maxLimit) {
@@ -88,21 +131,13 @@ class GameBoard
     }
     
     /**
-     * Добавляем на игровую доску корабль
-     */
-    public function addShipTest(Ship $ship): void
-    {
-        foreach ($ship->get() as $cell) {
-            $this->setCell($cell['row'], $cell['col']);
-        }
-    }
-    
-    /**
      * Обновляет состояние доски, добавляя корабли, промахи и попадания из соответствующих сврйств
      */
     public function update()
     {
         $this->updateShips();
+        $this->updateMiss();
+        $this->updateDamage();
     }
     
     /**
@@ -113,21 +148,24 @@ class GameBoard
         foreach ($this->ships as $ships) {
             foreach ($ships as $ship) {
                 foreach ($ship->get() as $decks) {
-                    $this->setCell($decks['row'], $decks['col']);
+                    $this->setCell($decks['y'], $decks['x'], self::SHIP_CELL);
                 }
             }
         }
     }
     
-    public function addDamageCell($y, $x)
+    private function updateMiss()
     {
-
+        foreach ($this->miss as $missCell) {
+            $this->setCell($missCell['y'], $missCell['x'], self::MISS_CELL);
+        }
     }
     
-    public function addMissCell($y, $x)
+    private function updateDamage()
     {
-        //Проверяем ячейку на существование ячейки
-            //Если существует, добаляем
+        foreach ($this->damage as $damageCell) {
+            $this->setCell($damageCell['y'], $damageCell['x'], self::DESTROY_CELL);
+        }
     }
     
     /**
@@ -143,10 +181,10 @@ class GameBoard
     /**
      * Заполняем ячейку игрового поля
      */
-    private function setCell($row, $col): void
+    private function setCell($y, $x, $state): void
     {
-        if (isset($this->board[$row][$col])) {
-            $this->board[$row][$col] = self::SHIP_CELL;
+        if (isset($this->board[$y][$x])) {
+            $this->board[$y][$x] = $state;
         }
     }
     

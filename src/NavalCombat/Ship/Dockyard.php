@@ -10,11 +10,6 @@ class Dockyard
     private const CRUISER_SIZE = 3;
     private const BATTLESHIP_SIZE = 4;
     
-    private const Y_LOW_BOUND = 65;
-    private const Y_UP_BOUND = 74;
-    private const X_LOW_BOUND = 1;
-    private const X_UP_BOUND = 10;
-    
     private $startPointY;
     private $startPointX;
     private $endPointY;
@@ -24,13 +19,15 @@ class Dockyard
     
     private $decks = [];
 
-    public function __construct()
+    private $boardOptions;
+
+    public function __construct(GameBoardOptions $BoardOptions)
     {
-        
+        $this->boardOptions = $BoardOptions;
     }
 
     /**
-     *
+     * Создает необходимый тип корабля
      */
     public function constructShip($startY, $startX, $size, $orientation)
     {
@@ -57,7 +54,7 @@ class Dockyard
     }
 
     /**
-     *
+     * Подготавливает данные для созлания корабля
      */
     private function prepareShip($startY, $startX, $size, $orientation)
     {
@@ -83,8 +80,8 @@ class Dockyard
     {
         if ($this->sizePointsIsCorrect()) {
             for ($i = $this->startPointY, $deckKey = 0; $i <= $this->endPointY; $i++, $deckKey++) {
-                $this->decks[$deckKey]['row'] = $i;
-                $this->decks[$deckKey]['col'] = $this->startPointX;
+                $this->decks[$deckKey]['y'] = $i;
+                $this->decks[$deckKey]['x'] = $this->startPointX;
             }
         }
     }
@@ -96,8 +93,8 @@ class Dockyard
     {
         if ($this->sizePointsIsCorrect()) {
             for ($i = $this->startPointX, $deckKey = 0; $i <= $this->endPointX; $i++, $deckKey++) {
-                $this->decks[$deckKey]['row'] = $this->startPointY;
-                $this->decks[$deckKey]['col'] = $i;
+                $this->decks[$deckKey]['y'] = $this->startPointY;
+                $this->decks[$deckKey]['x'] = $i;
             }
         }
     }
@@ -119,8 +116,8 @@ class Dockyard
      */
     private function isFirstPoint(): bool
     {
-        return ($this->startPointY >= self::Y_LOW_BOUND && $this->startPointY <= self::Y_UP_BOUND)
-            && ($this->startPointX >= self::X_LOW_BOUND && $this->startPointX <= self::X_UP_BOUND);
+        return ($this->startPointY >= $this->boardOptions->getYLowBound() && $this->startPointY <= $this->boardOptions->getYUpBound())
+            && ($this->startPointX >= $this->boardOptions->getXLowBound() && $this->startPointX <= $this->boardOptions->getXUpBound());
     }
 
     /**
@@ -130,8 +127,8 @@ class Dockyard
      */
     private function isLastPoint(): bool
     {
-        return ($this->endPointY >= self::Y_LOW_BOUND && $this->endPointY <= self::Y_UP_BOUND)
-            && ($this->endPointX >= self::X_LOW_BOUND && $this->endPointX <= self::X_UP_BOUND);
+        return ($this->endPointY >= $this->boardOptions->getYLowBound() && $this->endPointY <= $this->boardOptions->getYUpBound())
+            && ($this->endPointX >= $this->boardOptions->getXLowBound() && $this->endPointX <= $this->boardOptions->getXUpBound());
     }
 
     /**

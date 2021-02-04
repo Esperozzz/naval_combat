@@ -3,6 +3,7 @@
 class Ship
 {
     private $decks = [];
+    private $shadow = [];
     
     protected $size;
     

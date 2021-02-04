@@ -17,7 +17,7 @@ class View
         foreach ($board->get() as $rowKey => $rows) {
             $this->viewLeftBoard($rowKey);
             $this->viewXLine($rows, $rowKey);
-            echo "\n";
+            echo PHP_EOL;
         }
     }
     
@@ -35,7 +35,7 @@ class View
             $this->viewLeftBoard($rowKey);
             $this->viewXLine($boardTwo[$rowKey], $rowKey);
             
-            echo "\n";
+            echo PHP_EOL;
         }
     }
     
