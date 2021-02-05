@@ -20,6 +20,7 @@ class GameBoard
     private $board = [];
     
     private $ships = [];
+    private $shadows = [];
     private $miss = [];
     private $damage = [];
     
@@ -111,7 +112,24 @@ class GameBoard
                 
         }
     }
-    
+
+    /**
+     * Сравнивает тень корабля с списком теней добавленным на доску
+     */
+    private function compareShipShadows(Ship $ship): bool
+    {
+
+        return true;
+    }
+
+    /**
+     * Добавляет тень корабля в
+     */
+    private function addShadow(): void
+    {
+
+    }
+
     private function addDamage($y, $x)
     {
         $this->damage[] = ['y' => $y, 'x' => $x];
@@ -124,10 +142,7 @@ class GameBoard
     
     private function shipLimitedNotExceeded(array $shipArr, int $maxLimit): bool
     {
-        if (count($shipArr) < $maxLimit) {
-            return true;
-        }
-        return false;
+        return count($shipArr) < $maxLimit;
     }
     
     /**
@@ -181,7 +196,7 @@ class GameBoard
     /**
      * Заполняем ячейку игрового поля
      */
-    private function setCell($y, $x, $state): void
+    private function setCell(int $y, int $x, $state): void
     {
         if (isset($this->board[$y][$x])) {
             $this->board[$y][$x] = $state;

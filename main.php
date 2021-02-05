@@ -30,7 +30,7 @@ $dock2 = new Dockyard($options2);
 
 $view = new View();
 
-$ship11 = $dock1->constructShip($C, 4, 2, 0);
+$ship11 = $dock1->constructShip(74, 1, 2, 0);
 $boardOne->addShip($ship11);
 
 /*
@@ -84,13 +84,12 @@ for (;;) {
     $entered = str_split(strtoupper($result));
     if ($entered[0] == chr(88)) {
         exit();
-    } else {
-        var_dump($entered);
-        $y = ord($entered[0]);
-        $x = $entered[1];
-        
-        if (!$boardOne->addFire($y, $x)) {
-            throw new Exception('Fire past the game board');
-        }
+    }
+    var_dump($entered);
+    $y = ord($entered[0]);
+    $x = $entered[1];
+
+    if (!$boardOne->addFire($y, $x)) {
+        throw new Exception('Fire past the game board');
     }
 }

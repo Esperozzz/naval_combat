@@ -27,46 +27,65 @@ class Dockyard
     /**
      * Создает необходимый тип корабля
      */
-    public function constructShip($startY, $startX, $size, $orientation): Ship
+    public function constructShip(int $startY, int $startX, int $size, int $orientation): Ship
     {
         $decks = $this->prepareShip($startY, $startX, $size, $orientation);
-        
         $shadow = $this->prepareShadow($decks);
         
         switch ($size) {
             case (self::BOAT_SIZE):
-                return new Boat($decks);
+                return new Boat($decks, $shadow);
             case (self::DESTROYER_SIZE):
-                return new Destroyer($decks);
+                return new Destroyer($decks, $shadow);
             case (self::CRUISER_SIZE):
-                return new Cruiser($decks);
+                return new Cruiser($decks, $shadow);
             case (self::BATTLESHIP_SIZE):
-                return new Battleship($decks);
+                return new Battleship($decks, $shadow);
             default:
                 return null;
         }
     }
 
-    public function prepareShadow(array $shipDecks)
+    /**
+     *  Создает поля для корабля
+     */
+    public function prepareShadow(array $shipDecks): array
     {
+        $shadow = [];
         $firstKey = 0;
         $lastKey = count($shipDecks) - 1;
-        print_r($shipDecks);
+
         $startShadowY = $shipDecks[$firstKey]['y'] - 1;
         $startShadowX = $shipDecks[$firstKey]['x'] - 1;
         $endShadowY = $shipDecks[$lastKey]['y'] + 1;
         $endShadowX = $shipDecks[$lastKey]['x'] + 1;
-        
-        
-        
-        echo $startShadowY . PHP_EOL;
-        echo $startShadowX . PHP_EOL;
-        echo $endShadowY . PHP_EOL;
-        echo $endShadowX . PHP_EOL;
 
+        if ($startShadowY < $this->boardOptions->getYLowBound()) {
+            $startShadowY++;
+        }
 
-        print_r($shadow);
-        
+        if ($startShadowX < $this->boardOptions->getXLowBound()) {
+            $startShadowX++;
+        }
+
+        if ($endShadowY > $this->boardOptions->getYUpBound()) {
+            $endShadowY--;
+        }
+
+        if ($endShadowX > $this->boardOptions->getXUpBound()) {
+            $endShadowX--;
+        }
+
+        for ($y = $startShadowY; $y <= $endShadowY; $y++) {
+            for ($x = $startShadowX; $x <= $endShadowX; $x++) {
+                $shadow[] = [
+                    'y' => $y,
+                    'x' => $x,
+                ];
+            }
+        }
+
+        return $shadow;
     }
 
     /**
@@ -83,10 +102,8 @@ class Dockyard
         
         if ($orientation === self::Y_ORIENTATION) {
             return $this->makeByY();
-        } else {
-            return $this->makeByX();
         }
-        
+        return $this->makeByX();
     }
 
     /**
@@ -97,9 +114,11 @@ class Dockyard
         $decks = [];
         
         if ($this->sizePointsIsCorrect()) {
-            for ($i = $this->startPointY, $deckKey = 0; $i <= $this->endPointY; $i++, $deckKey++) {
-                $decks[$deckKey]['y'] = $i;
-                $decks[$deckKey]['x'] = $this->startPointX;
+            for ($i = $this->startPointY; $i <= $this->endPointY; $i++) {
+                $decks[] = [
+                    'y' => $i,
+                    'x' => $this->startPointX
+                ];
             }
         }
         
@@ -114,9 +133,11 @@ class Dockyard
         $decks = [];
         
         if ($this->sizePointsIsCorrect()) {
-            for ($i = $this->startPointX, $deckKey = 0; $i <= $this->endPointX; $i++, $deckKey++) {
-                $decks[$deckKey]['y'] = $this->startPointY;
-                $decks[$deckKey]['x'] = $i;
+            for ($i = $this->startPointX; $i <= $this->endPointX; $i++) {
+                $decks[] = [
+                    'y' => $this->startPointY,
+                    'x' => $i
+                ];
             }
         }
         
