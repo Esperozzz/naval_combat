@@ -2,8 +2,6 @@
 
 error_reporting(-1);
 
-define('ASCII_COMMERCIAL_AT', 64);
-
 include_once 'src/NavalCombat/GameBoard/GameBoard.php';
 include_once 'src/NavalCombat/GameBoard/GameBoardOptions.php';
 include_once 'src/NavalCombat/Ship/Dockyard.php';
@@ -30,8 +28,19 @@ $dock2 = new Dockyard($options2);
 
 $view = new View();
 
-$ship11 = $dock1->constructShip(74, 1, 2, 0);
+$ship11 = $dock1->constructShip(73, 10, 2, 1);
 $boardOne->addShip($ship11);
+
+$ship21 = $dock1->constructShip(72, 5, 4, 0);
+$boardOne->addShip($ship21);
+
+$ship31 = $dock1->constructShip(70, 6, 1, 0);
+$boardOne->addShip($ship31);
+
+$ship41 = $dock1->constructShip(69, 10, 3, 1);
+$boardOne->addShip($ship41);
+
+
 
 /*
 
@@ -42,7 +51,7 @@ $badShip1 = $dock1->constructShip($ERR, 1, 4, 0);
 
 
 
-$boardOne->addShip($ship21);
+
 $boardOne->addShip($ship31);
 $boardOne->addShip($ship41);
 $boardOne->addShip($badShip1);
@@ -70,6 +79,8 @@ $y = '';
 
 for (;;) {
 
+    system('clear');
+
     $boardOne->update();
     $boardTwo->update();
     $view->twoBoard($boardOne, $boardTwo);
@@ -83,9 +94,10 @@ for (;;) {
     
     $entered = str_split(strtoupper($result));
     if ($entered[0] == chr(88)) {
+        system('clear');
         exit();
     }
-    var_dump($entered);
+    //var_dump($entered);
     $y = ord($entered[0]);
     $x = $entered[1];
 

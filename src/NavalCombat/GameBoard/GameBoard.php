@@ -13,20 +13,22 @@ class GameBoard
     private const X_UP_BOUND = 10;
     
     private const EMPTY_CELL = '.';
+    private const SHADOW_CELL = 2;
     private const SHIP_CELL = 'H';
     private const DESTROY_CELL = 'X';
     private const MISS_CELL = 'o';
     
     private $board = [];
+    private $shadow = [];
     
     private $ships = [];
-    private $shadows = [];
     private $miss = [];
     private $damage = [];
     
     public function __construct()
     {
-        $this->create();
+        $this->board = $this->create();
+        $this->shadow = $this->create();
         
         $this->ships['boats'] = [];
         $this->ships['destroyers'] = [];
@@ -69,8 +71,14 @@ class GameBoard
         return $this->ships;
     }
     
-    public function addShip(Ship $ship)
+    public function addShip(Ship $ship): bool
     {
+        if (!$this->canIAddAShip($ship)) {
+            return false;
+        }
+
+        $this->addShadow($ship);
+
         switch ($ship->getSize()) {
             case (1): 
                 if ($this->shipLimitedNotExceeded($this->ships['boats'], self::BOAT_LIMIT)) {
@@ -93,6 +101,8 @@ class GameBoard
                 }
                 break;
         }
+        
+        return true;
     }
     
     public function addFire($y, $x): bool
@@ -112,22 +122,28 @@ class GameBoard
                 
         }
     }
-
+    
     /**
-     * Сравнивает тень корабля с списком теней добавленным на доску
+     * Добавляет тень корабля на доску теней
      */
-    private function compareShipShadows(Ship $ship): bool
+    private function addShadow(Ship $ship): void
     {
-
-        return true;
+        foreach ($ship->getShadow() as $shadowCell) {
+            $this->setShadowCell($shadowCell['y'], $shadowCell['x']);
+        }
     }
 
     /**
-     * Добавляет тень корабля в
+     * Сравнивает тень корабля с списком теней добавленныx на доску
      */
-    private function addShadow(): void
+    private function canIAddAShip(Ship $ship): bool
     {
-
+        foreach ($ship->get() as $shipDeck) {
+            if ($this->shadowCellIsBusy($shipDeck['y'], $shipDeck['x'])) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private function addDamage($y, $x)
@@ -186,20 +202,42 @@ class GameBoard
     /**
      * Создает пустое игровое поле
      */
-    private function create(): void
+    private function create(): array
     {
+        $board = [];
+        
         for ($yKey = self::Y_LOW_BOUND - 1; $yKey <= self::Y_UP_BOUND; $yKey++) {
-            $this->board[$yKey] = array_fill(1, self::X_UP_BOUND, self::EMPTY_CELL);
+            $board[$yKey] = array_fill(1, self::X_UP_BOUND, self::EMPTY_CELL);
         }
+        
+        return $board;
+    }
+    
+    /**
+     * Заполняем ячейку тени
+     */
+    private function setShadowCell(int $y, int $x): void
+    {
+        if (isset($this->shadow[$y][$x])) {
+            $this->shadow[$y][$x] = self::SHADOW_CELL;
+        }
+    }
+    
+    /**
+     * Проверяет, установлена ли ячейка тени
+     */
+    private function shadowCellIsBusy(int $y, int $x): bool
+    {
+        return $this->shadow[$y][$x] === self::SHADOW_CELL;
     }
     
     /**
      * Заполняем ячейку игрового поля
      */
-    private function setCell(int $y, int $x, $state): void
+    private function setCell(int $y, int $x, $setValue): void
     {
         if (isset($this->board[$y][$x])) {
-            $this->board[$y][$x] = $state;
+            $this->board[$y][$x] = $setValue;
         }
     }
     

@@ -49,7 +49,7 @@ class Dockyard
     /**
      *  Создает поля для корабля
      */
-    public function prepareShadow(array $shipDecks): array
+    private function prepareShadow(array $shipDecks): array
     {
         $shadow = [];
         $firstKey = 0;
