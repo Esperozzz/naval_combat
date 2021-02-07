@@ -2,8 +2,8 @@
 
 class Ship
 {
-    private $decks = [];
-    private $shadow = [];
+    private $decks;
+    private $shadow;
     
     protected $size;
     
@@ -27,5 +27,9 @@ class Ship
     {
         return $this->size;
     }
-    
+
+    public function isDestroyed(): bool
+    {
+        return empty($this->decks);
+    }
 }

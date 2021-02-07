@@ -1,6 +1,6 @@
 <?php
 
-class GameBoardOptions
+class GameBoardSizeOptions
 {
     private $yLowBound;
     private $xLowBound;
