@@ -7,55 +7,46 @@ class ShipStorage
     private const DESTROYER_LIMIT = 3;
     private const BOAT_LIMIT = 4;
 
-    private $boatKey = 0;
-    private $boat;
-
-    private $destroyerKey = 0;
-    private $destroyer;
-
-    private $cruiserKey = 0;
-    private $cruiser;
-
-    private $battleshipKey = 0;
-    private $battleship;
-
-    public function addBoat(Boat $ship)
+    private $ships;
+    
+    public function __construct()
     {
-        if ($this->boatKey > self::BOAT_LIMIT) {
-            $this->boat[$this->boatKey] = $ship;
-            $this->boatKey++;
-            return true;
+        $this->ships = [
+            new NamedFixedList('boat', self::BOAT_LIMIT),
+            new NamedFixedList('destroyer', self::DESTROYER_LIMIT),
+            new NamedFixedList('cruiser', self::CRUISER_LIMIT),
+            new NamedFixedList('battleship', self::BATTLESHIP_LIMIT)
+        ];
+    }
+    
+    public function add(Ship $ship): bool
+    {
+        foreach ($this->ships as $shipList) {
+            echo $ship->getType();
+            echo ' = ';
+            echo $shipList->getName();
+            echo PHP_EOL;
+            if ($ship->getType() === $shipList->getName()) {
+                if ($shipList->addValue($ship)) {
+                    return true;
+                }
+            }
         }
         return false;
     }
-
-    public function addDestroyer(Destroyer $ship)
+    
+    public function isFull(): bool
     {
-        if ($this->destroyerKey > self::DESTROYER_LIMIT) {
-            $this->destroyer[$this->destroyerKey] = $ship;
-            $this->destroyerKey++;
-            return true;
+        foreach ($this->ships as $shipList) {
+            if (!$shipList->isFull()) {
+                return false;
+            }
         }
-        return false;
+        return true;
     }
-
-    public function addCruiser(Cruiser $ship)
+    
+    public function getShips(): array
     {
-        if ($this->boatKey > self::CRUISER_LIMIT) {
-            $this->boat[$this->boatKey] = $ship;
-            $this->boatKey++;
-            return true;
-        }
-        return false;
-    }
-
-    public function addBattleship(Battleship $ship)
-    {
-        if ($this->boatKey > self::BATTLESHIP_LIMIT) {
-            $this->boat[$this->boatKey] = $ship;
-            $this->boatKey++;
-            return true;
-        }
-        return false;
+        
     }
 }

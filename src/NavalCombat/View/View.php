@@ -100,6 +100,6 @@ class View
 
     private function getOS(): string
     {
-        return $_SERVER['OS'];
+        return $_SERVER['OS'] ?? '';
     }
 }

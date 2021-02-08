@@ -5,6 +5,8 @@ error_reporting(-1);
 include_once 'src/NavalCombat/Console/ConsoleManager.php';
 include_once 'src/NavalCombat/GameBoard/GameBoard.php';
 include_once 'src/NavalCombat/GameBoard/GameBoardSizeOptions.php';
+include_once 'src/NavalCombat/GameBoard/ShipStorage.php';
+include_once 'src/NavalCombat/Ship/NamedFixedList.php';
 include_once 'src/NavalCombat/Ship/Dockyard.php';
 include_once 'src/NavalCombat/Ship/Ship.php';
 include_once 'src/NavalCombat/Ship/Boat.php';
@@ -46,35 +48,12 @@ $boardOne->addShip($ship41);
 $boardOne->updateShipsPosition();
 
 /*
-
-$ship21 = $dock1->constructShip($E, 1, 4, 0);
-$ship31 = $dock1->constructShip($E, 6, 2, 1);
-$ship41 = $dock1->constructShip($J, 10, 1, 1);
-$badShip1 = $dock1->constructShip($ERR, 1, 4, 0);
-
-
-
-
-$boardOne->addShip($ship31);
-$boardOne->addShip($ship41);
-$boardOne->addShip($badShip1);
-*/
-
-/*
-$ship12 = $dock2->constructShip(65, 9, 2, 0);
-$ship22 = $dock2->constructShip($E, 1, 4, 0);
-$ship32 = $dock2->constructShip($E, 6, 2, 1);
-
-$boardTwo->addShip($ship12);
-$boardTwo->addShip($ship22);
-$boardTwo->addShip($ship32);
-*/
-
 for ($i = $C - 1, $k = 3; $i < $J; $i++, $k++) {
     if (!$boardOne->addFire($i, $k)) {
         throw new Exception('Fire past the game board');
     }
 }
+*/
 
 $boardOne->addFire(70, 6);
 
@@ -85,6 +64,31 @@ $y = '';
 $view->boardAndShadow($boardOne);
 
 
+$ship1 = $dock1->constructShip(69, 10, 4, 1);
+$ship2 = $dock1->constructShip(70, 10, 3, 1);
+$ship3 = $dock1->constructShip(70, 10, 3, 1);
+$ship4 = $dock1->constructShip(70, 10, 2, 1);
+$ship5 = $dock1->constructShip(70, 10, 2, 1);
+$ship6 = $dock1->constructShip(70, 10, 2, 1);
+$ship7 = $dock1->constructShip(70, 10, 1, 1);
+$ship8 = $dock1->constructShip(70, 10, 1, 1);
+$ship9 = $dock1->constructShip(70, 10, 1, 1);
+$ship10 = $dock1->constructShip(70, 10, 1, 1);
+
+$ships = new ShipStorage();
+$ships->add($ship1);
+$ships->add($ship2);
+$ships->add($ship3);
+$ships->add($ship4);
+$ships->add($ship5);
+$ships->add($ship6);
+$ships->add($ship7);
+$ships->add($ship8);
+$ships->add($ship9);
+$ships->add($ship10);
+
+
+var_dump($ships);
 
 /*
 for (;;) {

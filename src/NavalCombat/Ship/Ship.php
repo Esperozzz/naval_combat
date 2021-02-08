@@ -1,9 +1,9 @@
 <?php
 
-class Ship
+abstract class Ship
 {
-    private $decks;
-    private $shadow;
+    protected $decks;
+    protected $shadow;
     
     protected $size;
     
@@ -26,6 +26,13 @@ class Ship
     public function getSize(): int
     {
         return $this->size;
+    }
+
+    public function getType(): string
+    {
+        echo self::class . PHP_EOL;
+        $explodeName = explode('\\',  __CLASS__);
+        return strtolower(array_pop($explodeName));
     }
 
     public function isDestroyed(): bool
