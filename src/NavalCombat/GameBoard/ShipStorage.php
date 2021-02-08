@@ -22,10 +22,6 @@ class ShipStorage
     public function add(Ship $ship): bool
     {
         foreach ($this->ships as $shipList) {
-            echo $ship->getType();
-            echo ' = ';
-            echo $shipList->getName();
-            echo PHP_EOL;
             if ($ship->getType() === $shipList->getName()) {
                 if ($shipList->addValue($ship)) {
                     return true;
@@ -47,6 +43,12 @@ class ShipStorage
     
     public function getShips(): array
     {
-        
+        $result = [];
+        foreach ($this->ships as $shipList) {
+            foreach ($shipList->toArray() as $ship) {
+                $result[] = $ship;
+            }
+        }
+        return $result;
     }
 }

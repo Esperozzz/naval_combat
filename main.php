@@ -6,7 +6,7 @@ include_once 'src/NavalCombat/Console/ConsoleManager.php';
 include_once 'src/NavalCombat/GameBoard/GameBoard.php';
 include_once 'src/NavalCombat/GameBoard/GameBoardSizeOptions.php';
 include_once 'src/NavalCombat/GameBoard/ShipStorage.php';
-include_once 'src/NavalCombat/Ship/NamedFixedList.php';
+include_once 'src/NavalCombat/GameBoard/NamedFixedList.php';
 include_once 'src/NavalCombat/Ship/Dockyard.php';
 include_once 'src/NavalCombat/Ship/Ship.php';
 include_once 'src/NavalCombat/Ship/Boat.php';
@@ -88,7 +88,10 @@ $ships->add($ship9);
 $ships->add($ship10);
 
 
-var_dump($ships);
+
+
+//print_r($ships->getShips());
+//var_dump($ships);
 
 /*
 for (;;) {
