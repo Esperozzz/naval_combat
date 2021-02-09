@@ -19,6 +19,9 @@ class ShipStorage
         ];
     }
     
+    /**
+     * Добавляет корабль в соответствующую структуру
+     */
     public function add(Ship $ship): bool
     {
         foreach ($this->ships as $shipList) {
@@ -31,6 +34,9 @@ class ShipStorage
         return false;
     }
     
+    /**
+     * Поверяет, достигнут ли лимит кораблей
+     */
     public function isFull(): bool
     {
         foreach ($this->ships as $shipList) {
@@ -41,6 +47,9 @@ class ShipStorage
         return true;
     }
     
+    /**
+     * Получить массив кораблей
+     */
     public function getShips(): array
     {
         $result = [];

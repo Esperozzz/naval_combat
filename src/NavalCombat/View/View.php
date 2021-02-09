@@ -15,6 +15,13 @@ class View
     private $boardOne;
     private $boardTwo;
     
+    private $debugOn;
+    
+    public function __construct(bool $debugOn = true)
+    {
+        $this->debugOn = $debugOn;
+    }
+    
     public function oneBoard(GameBoard $board): void
     {
         foreach ($board->getShadow() as $rowKey => $rows) {
@@ -91,6 +98,10 @@ class View
 
     public function clearDisplay(): void
     {
+        if ($this->debugOn) {
+            return;
+        }
+        
         if ($this->getOS() === self::WIN_OS) {
             system('CLS');
         } else {

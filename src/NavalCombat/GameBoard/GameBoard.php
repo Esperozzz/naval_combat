@@ -2,11 +2,6 @@
 
 class GameBoard
 {
-    private const BATTLESHIP_LIMIT = 1;
-    private const CRUISER_LIMIT = 2;
-    private const DESTROYER_LIMIT = 3;
-    private const BOAT_LIMIT = 4;
-    
     private const Y_LOW_BOUND = 65;
     private const X_LOW_BOUND = 1;
     private const Y_UP_BOUND = 74;
@@ -21,18 +16,14 @@ class GameBoard
     
     private $boardMap;
     private $shadowMap;
-    
-    private $shipsList;
+    private $shipStorage;
     
     public function __construct()
     {
         $this->boardMap = $this->create();
         $this->shadowMap = $this->create();
         
-        $this->shipsList['boats'] = [];
-        $this->shipsList['destroyers'] = [];
-        $this->shipsList['cruisers'] = [];
-        $this->shipsList['battleships'] = [];
+        $this->shipStorage = new ShipStorage();
     }
     
     /**
@@ -49,6 +40,14 @@ class GameBoard
     public function getShadow(): array
     {
         return $this->shadowMap;
+    }
+
+    /**
+     * Очищает доску теней, для освобождения памяти
+     */
+    public function clearShadow(): void
+    {
+        $this->shadowMap = [];
     }
 
     /**
@@ -76,49 +75,13 @@ class GameBoard
     /**
      * Обновляет информацию о кораблях на поле
      */
-    public function updateShipsPosition(): void
+    public function updateShipsPosition(ShipStorage $storage): void
     {
-        foreach ($this->shipsList as $ships) {
-            foreach ($ships as $ship) {
-                foreach ($ship->get() as $decks) {
-                    $this->setCell($decks['y'], $decks['x'], self::SHIP_CELL);
-                }
+        foreach ($storage->getShips() as $ship) {
+            foreach ($ship->get() as $decks) {
+                $this->setCell($decks['y'], $decks['x'], self::SHIP_CELL);
             }
         }
-    }
-
-    public function addShip(Ship $ship): bool
-    {
-        if (!$this->canIAddAShip($ship)) {
-            return false;
-        }
-
-        $this->addShadow($ship);
-
-        switch ($ship->getSize()) {
-            case (1): 
-                if ($this->shipLimitedNotExceeded($this->shipsList['boats'], self::BOAT_LIMIT)) {
-                    $this->shipsList['boats'][] = $ship;
-                }
-                break;
-            case (2):
-                if ($this->shipLimitedNotExceeded($this->shipsList['destroyers'], self::DESTROYER_LIMIT)) {
-                    $this->shipsList['destroyers'][] = $ship;
-                }
-                break;
-            case (3): 
-                if ($this->shipLimitedNotExceeded($this->shipsList['cruisers'], self::CRUISER_LIMIT)) {
-                    $this->shipsList['cruisers'][] = $ship;
-                }
-                break;
-            case (4): 
-                if ($this->shipLimitedNotExceeded($this->shipsList['battleships'], self::BATTLESHIP_LIMIT)) {
-                    $this->shipsList['battleships'][] = $ship;
-                }
-                break;
-        }
-        
-        return true;
     }
     
     public function addFire($y, $x): bool
@@ -138,7 +101,7 @@ class GameBoard
     /**
      * Добавляет тень корабля на доску теней
      */
-    private function addShadow(Ship $ship): void
+    public function addShadow(Ship $ship): void
     {
         foreach ($ship->getShadow() as $shadowCell) {
             $this->setShadowCell($shadowCell['y'], $shadowCell['x']);
@@ -148,7 +111,7 @@ class GameBoard
     /**
      * Сравнивает тень корабля с списком теней добавленныx на доску
      */
-    private function canIAddAShip(Ship $ship): bool
+    public function canIAddAShip(Ship $ship): bool
     {
         foreach ($ship->get() as $shipDeck) {
             if ($this->shadowCellIsBusy($shipDeck['y'], $shipDeck['x'])) {
@@ -156,14 +119,6 @@ class GameBoard
             }
         }
         return true;
-    }
-
-    /**
-     * Проверяет заполнин ли предел типа корабля
-     */
-    private function shipLimitedNotExceeded(array $shipArr, int $maxLimit): bool
-    {
-        return count($shipArr) < $maxLimit;
     }
 
     /**
@@ -175,7 +130,6 @@ class GameBoard
         for ($yKey = self::Y_LOW_BOUND - 1; $yKey <= self::Y_UP_BOUND; $yKey++) {
             $board[$yKey] = array_fill(1, self::X_UP_BOUND, self::EMPTY_CELL);
         }
-        
         return $board;
     }
 
@@ -193,6 +147,11 @@ class GameBoard
     private function addMiss(int $y, int $x): void
     {
         $this->setCell($y, $x, self::MISS_CELL);
+    }
+
+    private function addError(string $message): void
+    {
+        $this->errors[] = $message;
     }
 
     /**
@@ -220,14 +179,22 @@ class GameBoard
      */
     private function shadowCellIsBusy(int $y, int $x): bool
     {
-        return $this->getCell($y, $x, $this->shadowMap) === self::SHADOW_CELL;
+        return $this->getShadowCell($y, $x) === self::SHADOW_CELL;
     }
 
     /**
      * Получает ячейку указанного поля
      */
-    private function getCell(int $y, int $x, array $board)
+    private function getShadowCell(int $y, int $x)
     {
-        return $board[$y][$x];
+        return $this->shadowMap[$y][$x];
+    }
+    
+    /**
+     *
+     */
+    private function isSetCell(int $y, int $x): bool
+    {
+        return isset($this->boardMap[$y][$x]);
     }
 }

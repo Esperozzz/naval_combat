@@ -16,7 +16,7 @@ abstract class Ship
     }
 
     /**
-     *
+     * Получить массив ячеек корабля
      */
     public function get(): array
     {
@@ -24,7 +24,7 @@ abstract class Ship
     }
 
     /**
-     *
+     * Получить массив ячеек тени корабля
      */
     public function getShadow(): array
     {
@@ -32,7 +32,7 @@ abstract class Ship
     }
 
     /**
-     *
+     * Получить размер корабля
      */
     public function getSize(): int
     {
@@ -40,16 +40,16 @@ abstract class Ship
     }
 
     /**
-     *
+     * Получить имя типа корабля
      */
     public function getType(): string
     {
-        $explodeName = explode('\\',  get_class($this));
-        return strtolower(array_pop($explodeName));
+        $namespace = explode('\\',  get_class($this));
+        return strtolower(array_pop($namespace));
     }
 
     /**
-     *
+     * Проверяет массив ячеек корабля, пуст он или нет
      */
     public function isDestroyed(): bool
     {

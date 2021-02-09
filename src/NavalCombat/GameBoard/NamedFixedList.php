@@ -34,7 +34,10 @@ class NamedFixedList
      */
     public function toArray(): array
     {
-        return $this->data[$this->name];
+        if (isset($this->data[$this->name])) {
+            return $this->data[$this->name];
+        }
+        return [];
     }
 
     /**

@@ -29,6 +29,8 @@ class Dockyard
      */
     public function constructShip(int $startY, int $startX, int $size, int $orientation = 1): Ship
     {
+        //Переработать, создать возвращаемый тип по умолчанию
+        
         $decks = $this->prepareShip($startY, $startX, $size, $orientation);
         $shadow = $this->prepareShadow($decks);
         
