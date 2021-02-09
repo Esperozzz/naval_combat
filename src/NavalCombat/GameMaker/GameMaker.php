@@ -36,7 +36,7 @@ class GameMaker
         //Создаем корабль по переданным параметрам
         $newShip = $this->playerDockyard->constructShip($y, $x, $size, $orientation);
         if (is_null($newShip)) {
-            $this->errors[] = 'Unspecified ship data';
+            $this->addError('Unspecified ship data');
             return false;
         }
         
@@ -44,13 +44,13 @@ class GameMaker
         
         //Проверяем, не пересекается ли корабль с уже установленными тенями
         if (!$this->playerBoard->canIAddAShip($newShip)) {
-            $this->errors[] = 'The ships coordinates are not correct. A ship must not cross the boundaries of another ship.';
+            $this->addError('The ships coordinates are not correct. A ship must not cross the boundaries of another ship.');
             return false;
         }
         
         //Пытаемся добавить корабль в хранилище кораблей
         if (!$this->playerShips->add($newShip)) {
-            $this->errors[] = 'The limit of ships of this type is exceeded';
+            $this->addError('The limit of ships of this type is exceeded');
             return false;
         }
         
@@ -73,7 +73,7 @@ class GameMaker
     {
         return $this->errors;
     }
-    
+
     public function getPlayerBoard(): GameBoard
     {
         return $this->playerBoard;
@@ -82,5 +82,10 @@ class GameMaker
     public function getComputerBoard(): GameBoard
     {
         return $this->computerBoard;
+    }
+
+    private function addError($message)
+    {
+        $this->errors[] = $message;
     }
 }
