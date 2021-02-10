@@ -71,6 +71,26 @@ class View
         }
     }
     
+    public function gameMenu(array $menu): void
+    {
+        foreach ($menu as $key => $option) {
+            echo "[{$key}] $option" . PHP_EOL;
+        }
+    }
+    
+    public function clearDisplay(): void
+    {
+        if ($this->debugOn) {
+            return;
+        }
+        
+        if ($this->getOS() === self::WIN_OS) {
+            system('CLS');
+        } else {
+            system('clear');
+        }
+    }
+    
     private function viewXLine(array $arr, $rowKey): void
     {
         foreach ($arr as $colKey => $col) {
@@ -94,19 +114,6 @@ class View
             } else {
                 echo chr($key) . ' ';
             }
-    }
-
-    public function clearDisplay(): void
-    {
-        if ($this->debugOn) {
-            return;
-        }
-        
-        if ($this->getOS() === self::WIN_OS) {
-            system('CLS');
-        } else {
-            system('clear');
-        }
     }
 
     private function getOS(): string

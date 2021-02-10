@@ -2,11 +2,14 @@
 
 class ConsoleManager
 {
-    private const INPUT_STRING_MAX_LENGTH = 10;
+    private const INPUT_STRING_MAX_LENGTH = 3;
+    private const MENU_OPTIONS_MAX_LENGTH = 1;
     
     private static $init;
     private $inputString;
     private $arguments;
+    
+    private function __construct(){}
     
     public static function start(): self
     {
@@ -15,22 +18,51 @@ class ConsoleManager
         }
         return self::$init;
     }
-    
-    private function __construct(){}
 
     public function getInput(): void
     {
-        $stdin = fopen('php://stdin', 'r');
-        $this->inputString = stream_get_contents($stdin, self::INPUT_STRING_MAX_LENGTH);
+        $input = trim(readline());
+        $this->inputString = substr($input, 0, self::INPUT_STRING_MAX_LENGTH);
+    }
+    
+    /**
+     * Проверяет, является ли ввод координатами
+     */
+    public function isCoordinate(string $inputStr): bool
+    {
+        return strlen($inputStr) > self::MENU_OPTIONS_MAX_LENGTH;
+    }
+    
+    /**
+     * Разбивает строку координат на составные части y и x
+     */
+    public function convertToCoordinate(string $coord): array
+    {
+        $y = substr($coord, 0, 1);
+        
+        return [
+            'y' => (int) ord(strtoupper($y)),
+            'x' => (int) substr($coord, 1, 2)
+        ];
+    }
+    
+    public function handler()
+    {
+         
     }
 
-    public function returnInput(): array
+    public function returnInput()
     {
-
+        return $this->inputString;
+    }
+    
+    public function exit(): void
+    {
+        
     }
 
-    private function parseString(): array
+    private function inputPrepare(string $input): array
     {
-
+        
     }
 }

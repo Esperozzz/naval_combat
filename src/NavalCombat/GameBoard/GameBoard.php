@@ -10,9 +10,9 @@ class GameBoard
     private const SHADOW_CELL = '*';
 
     private const EMPTY_CELL = '.';
+    private const MISS_CELL = 'o';
     private const SHIP_CELL = 'H';
     private const DESTROY_CELL = 'X';
-    private const MISS_CELL = 'o';
     
     private $boardMap;
     private $shadowMap;
@@ -84,17 +84,17 @@ class GameBoard
         }
     }
     
-    public function addFire($y, $x): bool
+    public function addFire($y, $x): int
     {
         switch ($this->boardMap[$y][$x]) {
-            case (self::SHIP_CELL):
-                $this->addDamage($y, $x);
-                return true;
             case (self::EMPTY_CELL):
                 $this->addMiss($y, $x);
-                return true;
+                return 0;
+            case (self::SHIP_CELL):
+                $this->addDamage($y, $x);
+                return 1;
             default:
-                return false;
+                return -1;
         }
     }
 
@@ -122,7 +122,7 @@ class GameBoard
     }
 
     /**
-     * Создает пустое игровое поле
+     * Создает пустое поле
      */
     private function create(): array
     {
@@ -191,7 +191,7 @@ class GameBoard
     }
     
     /**
-     *
+     * Проверяет существование ячейки
      */
     private function isSetCell(int $y, int $x): bool
     {

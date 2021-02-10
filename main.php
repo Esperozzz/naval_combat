@@ -17,7 +17,14 @@ include_once 'src/NavalCombat/Ship/Battleship.php';
 include_once 'src/NavalCombat/View/View.php';
 
 $console = ConsoleManager::start();
-$view = new View();
+$view = new View(true);
+$gm = new GameMaker();
+
+$menu = [
+    1 => 'Start game',
+    2 => 'Options',
+    'x' => 'Exit'
+];
 
 $ships = [
     ['y' => 70, 'x' => 5, 'size' => 4, 'orient' => 1],
@@ -32,41 +39,58 @@ $ships = [
     ['y' => 74, 'x' => 8, 'size' => 2, 'orient' => 0],
 ];
 
-$gm = new GameMaker();
 foreach ($ships as $s) {
     $gm->playerShipAdd($s['y'], $s['x'], $s['size'], $s['orient']);
 }
 
 $gm->allShipSet();
 
-$view->boardAndShadow($gm->getPlayerBoard());
-
-
-
-/*
 for (;;) {
-
-    $boardOne->update();
-    $boardTwo->update();
-    $view->twoBoard($boardOne, $boardTwo);
-
-
-
-    $stdin = fopen('php://stdin', 'r');
-    echo PHP_EOL;
-    echo "Enter text: ";
-    $result = stream_get_contents($stdin, 3);
     
-    $entered = str_split(strtoupper($result));
-    if ($entered[0] == chr(88)) {
-        $view->clearDisplay();
-        exit();
+    $view->clearDisplay();
+    
+    $view->gameMenu($menu);
+    
+    echo 'Select option: ';
+    $console->getInput();
+    $input = $console->returnInput();
+    
+    switch ($input) {
+        case (1):
+        
+            for (;;) {
+                //Вывод
+                $view->clearDisplay();
+                $view->boardAndShadow($gm->getPlayerBoard());
+                echo 'Enter fire: ';
+                
+                //Ввод
+                $console->getInput();
+                $input = $console->returnInput();
+                
+                if ($console->isCoordinate($input)) {
+                    $coord = $console->convertToCoordinate($input);
+                    $gm->fire($coord['y'], $coord['x']);
+                }
+                
+                if ($input == 'x') {
+                    break;
+                }
+            }
+            
+            break;
+        case (2):
+            echo 'Options' .  PHP_EOL;
+            break;
+        case ('x'):
+            exit();
+        default:
+            break;
     }
-    //var_dump($entered);
-    $y = ord($entered[0]);
-    $x = $entered[1];
+}
 
-    if (!$boardOne->addFire($y, $x)) {
-        throw new Exception('Fire past the game board');
-    }
-}*/
+
+
+
+
+

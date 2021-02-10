@@ -15,9 +15,6 @@ class GameMaker
     
     public function __construct()
     {
-        $playerOptions = null;
-        $computerOption = null;
-        
         $this->playerBoard = new GameBoard();
         $playerOptions = $this->playerBoard->getSizeOptions();
         $this->playerDockyard = new Dockyard($playerOptions);
@@ -67,11 +64,28 @@ class GameMaker
             echo PHP_EOL;
         }
         
+        
+        //$fire = $this->playerBoard->addFire(67, 1);
+        /*
+        $message = '';
+        switch ($fire) {
+            case (0):
+                $message = 'Miss';
+                break;
+            case (1):
+                $message = 'Hit';
+                break;
+            default:
+                $message = 'Enter a different cell';
+                break;
+        }
+        */
+        
     }
-    
-    public function getErrors(): array
+
+    public function fire($y, $x)
     {
-        return $this->errors;
+        $fire = $this->playerBoard->addFire($y, $x);
     }
 
     public function getPlayerBoard(): GameBoard
@@ -84,7 +98,12 @@ class GameMaker
         return $this->computerBoard;
     }
 
-    private function addError($message)
+    public function getErrors(): array
+    {
+        return $this->errors;
+    }
+
+    private function addError($message): void
     {
         $this->errors[] = $message;
     }
