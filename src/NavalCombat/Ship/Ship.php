@@ -1,6 +1,6 @@
 <?php
 
-abstract class Ship
+class Ship
 {
     protected $decks;
     protected $shadow;
@@ -46,6 +46,13 @@ abstract class Ship
     {
         $namespace = explode('\\',  get_class($this));
         return strtolower(array_pop($namespace));
+    }
+
+    public function removeDeck($y, $x): void
+    {
+        if (isset($this->decks[$y][$x])) {
+            unset($this->decks[$y][$x]);
+        }
     }
 
     /**

@@ -3,11 +3,11 @@
 error_reporting(-1);
 
 include_once 'src/NavalCombat/GameMaker/GameMaker.php';
-include_once 'src/NavalCombat/Console/ConsoleManager.php';
+include_once 'src/NavalCombat/Console/ConsoleInput.php';
 include_once 'src/NavalCombat/GameBoard/GameBoard.php';
 include_once 'src/NavalCombat/GameBoard/GameBoardSizeOptions.php';
-include_once 'src/NavalCombat/GameBoard/ShipStorage.php';
-include_once 'src/NavalCombat/GameBoard/NamedFixedList.php';
+include_once 'src/NavalCombat/Ship/ShipStorage.php';
+include_once 'src/NavalCombat/Structures/NamedFixedList.php';
 include_once 'src/NavalCombat/Ship/Dockyard.php';
 include_once 'src/NavalCombat/Ship/Ship.php';
 include_once 'src/NavalCombat/Ship/Boat.php';
@@ -16,7 +16,7 @@ include_once 'src/NavalCombat/Ship/Cruiser.php';
 include_once 'src/NavalCombat/Ship/Battleship.php';
 include_once 'src/NavalCombat/View/View.php';
 
-$console = ConsoleManager::start();
+$input = new ConsoleInput();
 $view = new View(true);
 $gm = new GameMaker();
 
@@ -45,6 +45,32 @@ foreach ($ships as $s) {
 
 $gm->allShipSet();
 
+    //1. Вывести общее меню
+    //2. Новая игра
+    //3. Запросить расстановку кораблей
+        //3.a Получить координаты корабля
+            //3.a.1 Если координаты не корректные, вернуться в предыдущий пункт (3.a)
+        //3.б Обновить доску с кораблями
+        //3.в Провертить, все ли корабли установлены
+            //3.в.1 Если нет, повторить итерацию (3.а)
+        //3.г Установить корабли компьютера
+    //4. Бросить жребий, кто ходит первый (от жребия определить очередность пунктов 5 и 7)
+    //5. Запросить ход игрока
+        //5.а Получить координаты выстрела
+        //5.б Сверить выстрел с картой игры
+            //5.б.1 Если попал вывести сообщение
+            //5.б.2 Проверить, все ли корабли убиты
+            //5.б.3 Вывести сообщение о попадании
+            //5.б.4 Повторить цикл (5.а)
+            //5.в.1 Если не попал, вывести сообщение
+    //6. Отметить выстрел на поле игры компьютера
+    //7. Повторить пункты 5 для компьютера
+    //8. Когда игрок или компьютер победит, показать расположение кораблей на поле
+
+    //Опции
+    //Выход
+
+
 for (;;) {
     
     $view->clearDisplay();
@@ -52,10 +78,10 @@ for (;;) {
     $view->gameMenu($menu);
     
     echo 'Select option: ';
-    $console->getInput();
-    $input = $console->returnInput();
+    $input->read();
+    $arguments = $input->getString();
     
-    switch ($input) {
+    switch ($arguments) {
         case (1):
         
             for (;;) {
@@ -65,15 +91,16 @@ for (;;) {
                 echo 'Enter fire: ';
                 
                 //Ввод
-                $console->getInput();
-                $input = $console->returnInput();
-                
-                if ($console->isCoordinate($input)) {
-                    $coord = $console->convertToCoordinate($input);
+                $input->read();
+                $arguments = $input->getString();
+
+                //Получение координат выстрела
+                if ($input->isCoordinate($arguments)) {
+                    $coord = $input->convertToCoordinate($arguments);
                     $gm->fire($coord['y'], $coord['x']);
                 }
                 
-                if ($input == 'x') {
+                if ($arguments == 'x') {
                     break;
                 }
             }

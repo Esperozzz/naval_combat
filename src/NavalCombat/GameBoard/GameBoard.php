@@ -16,38 +16,11 @@ class GameBoard
     
     private $boardMap;
     private $shadowMap;
-    private $shipStorage;
     
     public function __construct()
     {
         $this->boardMap = $this->create();
         $this->shadowMap = $this->create();
-        
-        $this->shipStorage = new ShipStorage();
-    }
-    
-    /**
-     * Получить игровую доску
-     */
-    public function get(): array
-    {
-        return $this->boardMap;
-    }
-
-    /**
-     * Получить доску теней игрового поля
-     */
-    public function getShadow(): array
-    {
-        return $this->shadowMap;
-    }
-
-    /**
-     * Очищает доску теней, для освобождения памяти
-     */
-    public function clearShadow(): void
-    {
-        $this->shadowMap = [];
     }
 
     /**
@@ -61,6 +34,30 @@ class GameBoard
             self::Y_UP_BOUND,
             self::X_UP_BOUND
         );
+    }
+
+    /**
+     * Получить игровую доску
+     */
+    public function get(): array
+    {
+        return $this->boardMap;
+    }
+
+    /**
+     * Получить доску теней игрового поля
+     */
+    public function getShadowMap(): array
+    {
+        return $this->shadowMap;
+    }
+
+    /**
+     * Очищает доску теней, для освобождения памяти
+     */
+    public function clearShadowMap(): void
+    {
+        $this->shadowMap = [];
     }
     
     /**
@@ -88,10 +85,10 @@ class GameBoard
     {
         switch ($this->boardMap[$y][$x]) {
             case (self::EMPTY_CELL):
-                $this->addMiss($y, $x);
+                $this->addMissCell($y, $x);
                 return 0;
             case (self::SHIP_CELL):
-                $this->addDamage($y, $x);
+                $this->addDamageCell($y, $x);
                 return 1;
             default:
                 return -1;
@@ -101,7 +98,7 @@ class GameBoard
     /**
      * Добавляет тень корабля на доску теней
      */
-    public function addShadow(Ship $ship): void
+    public function addShipShadow(Ship $ship): void
     {
         foreach ($ship->getShadow() as $shadowCell) {
             $this->setShadowCell($shadowCell['y'], $shadowCell['x']);
@@ -136,7 +133,7 @@ class GameBoard
     /**
      * Добавить ячейку урона на поле
      */
-    private function addDamage(int $y, int $x): void
+    private function addDamageCell(int $y, int $x): void
     {
         $this->setCell($y, $x, self::DESTROY_CELL);
     }
@@ -144,14 +141,9 @@ class GameBoard
     /**
      * Добавить ячейку промаха на поле
      */
-    private function addMiss(int $y, int $x): void
+    private function addMissCell(int $y, int $x): void
     {
         $this->setCell($y, $x, self::MISS_CELL);
-    }
-
-    private function addError(string $message): void
-    {
-        $this->errors[] = $message;
     }
 
     /**

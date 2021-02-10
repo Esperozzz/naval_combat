@@ -17,7 +17,7 @@ class NamedFixedList
     }
 
     /**
-     *
+     * Добавляет значение в структуру
      */
     public function addValue($value): bool
     {
@@ -30,18 +30,15 @@ class NamedFixedList
     }
 
     /**
-     *
+     * Преобразует структуру в массив
      */
     public function toArray(): array
     {
-        if (isset($this->data[$this->name])) {
-            return $this->data[$this->name];
-        }
-        return [];
+        return $this->data[$this->name] ?? [];
     }
 
     /**
-     *
+     * Проверяет, заполнина ли структура
      */
     public function isFull(): bool
     {
@@ -49,7 +46,7 @@ class NamedFixedList
     }
 
     /**
-     *
+     * Получает имя структуры
      */
     public function getName(): string
     {

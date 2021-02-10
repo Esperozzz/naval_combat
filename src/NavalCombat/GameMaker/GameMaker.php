@@ -51,7 +51,7 @@ class GameMaker
             return false;
         }
         
-        $this->playerBoard->addShadow($newShip);
+        $this->playerBoard->addShipShadow($newShip);
         return true;
     }
     

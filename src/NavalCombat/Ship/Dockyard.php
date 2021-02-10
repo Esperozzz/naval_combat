@@ -27,7 +27,7 @@ class Dockyard
     /**
      * Создает необходимый тип корабля
      */
-    public function constructShip(int $startY, int $startX, int $size, int $orientation = 1): Ship
+    public function constructShip(int $startY, int $startX, int $size, int $orientation = 0): Ship
     {
         //Переработать, создать возвращаемый тип по умолчанию
         

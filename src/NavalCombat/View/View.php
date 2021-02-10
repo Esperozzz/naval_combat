@@ -24,7 +24,7 @@ class View
     
     public function oneBoard(GameBoard $board): void
     {
-        foreach ($board->getShadow() as $rowKey => $rows) {
+        foreach ($board->getShadowMap() as $rowKey => $rows) {
             $this->viewLeftBoard($rowKey);
             $this->viewXLine($rows, $rowKey);
             echo PHP_EOL;
@@ -56,7 +56,7 @@ class View
         $this->clearDisplay();
 
         $board = $boardOne->get();
-        $shadow = $boardOne->getShadow();
+        $shadow = $boardOne->getShadowMap();
 
         foreach ($board as $rowKey => $rows) {
             $this->viewLeftBoard($rowKey);
