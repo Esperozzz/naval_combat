@@ -30,19 +30,19 @@ class Dockyard
     public function constructShip(int $startY, int $startX, int $size, int $orientation = 0): Ship
     {
         //Переработать, создать возвращаемый тип по умолчанию
-        
+        $id = $this->prepareId($startY, $startX);
         $decks = $this->prepareShip($startY, $startX, $size, $orientation);
         $shadow = $this->prepareShadow($decks);
         
         switch ($size) {
             case (self::BOAT_SIZE):
-                return new Boat($decks, $shadow);
+                return new Boat($id, $decks, $shadow);
             case (self::DESTROYER_SIZE):
-                return new Destroyer($decks, $shadow);
+                return new Destroyer($id, $decks, $shadow);
             case (self::CRUISER_SIZE):
-                return new Cruiser($decks, $shadow);
+                return new Cruiser($id, $decks, $shadow);
             case (self::BATTLESHIP_SIZE):
-                return new Battleship($decks, $shadow);
+                return new Battleship($id, $decks, $shadow);
             default:
                 return null;
         }
@@ -106,6 +106,12 @@ class Dockyard
             return $this->makeByY();
         }
         return $this->makeByX();
+    }
+
+    public function prepareId($y, $x): string
+    {
+        $string = $y . $x . microtime();
+        return md5($string);
     }
 
     /**

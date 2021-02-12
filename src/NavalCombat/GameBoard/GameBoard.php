@@ -16,6 +16,7 @@ class GameBoard
     
     private $boardMap;
     private $shadowMap;
+    private $ships = [];
     
     public function __construct()
     {
@@ -70,9 +71,9 @@ class GameBoard
     }
 
     /**
-     * Обновляет информацию о кораблях на поле
+     * Устанавливает корабли на игровую доску
      */
-    public function updateShipsPosition(ShipStorage $storage): void
+    public function installShipsOnBoard(ShipStorage $storage): void
     {
         foreach ($storage->getShips() as $ship) {
             foreach ($ship->get() as $decks) {
@@ -131,7 +132,7 @@ class GameBoard
     }
 
     /**
-     * Добавить ячейку урона на поле
+     * Добавить ячейку урона на игровую доску
      */
     private function addDamageCell(int $y, int $x): void
     {
@@ -139,7 +140,7 @@ class GameBoard
     }
 
     /**
-     * Добавить ячейку промаха на поле
+     * Добавить ячейку промаха на игровую доску
      */
     private function addMissCell(int $y, int $x): void
     {
@@ -147,7 +148,7 @@ class GameBoard
     }
 
     /**
-     * Заполняем ячейку игрового поля
+     * Заполняем ячейку игровой доски указанным типом
      */
     private function setCell(int $y, int $x, $setValue): void
     {
@@ -175,7 +176,7 @@ class GameBoard
     }
 
     /**
-     * Получает ячейку указанного поля
+     * Получает ячейку указанного поля теней
      */
     private function getShadowCell(int $y, int $x)
     {
@@ -183,7 +184,7 @@ class GameBoard
     }
     
     /**
-     * Проверяет существование ячейки
+     * Проверяет существование ячейки на игровой доске
      */
     private function isSetCell(int $y, int $x): bool
     {

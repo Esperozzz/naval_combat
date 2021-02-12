@@ -48,7 +48,7 @@ class ShipStorage
     }
     
     /**
-     * Получить массив кораблей
+     * Получить массив всех кораблей
      */
     public function getShips(): array
     {

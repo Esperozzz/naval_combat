@@ -11,6 +11,8 @@ class GameMaker
     private $playerShips;
     private $computerShips;
     
+    private $damageManager;
+    
     private $errors = [];
     
     public function __construct()
@@ -24,6 +26,8 @@ class GameMaker
         $computerOptions = $this->computerBoard->getSizeOptions();
         $this->computerDockyard = new Dockyard($computerOptions);
         $this->computerShips = new ShipStorage();
+        
+        $this->damageManager = new ShipDamageManager($this->playerShips);
         
     }
     
@@ -58,12 +62,11 @@ class GameMaker
     
     public function allShipSet()
     {
-        $this->playerBoard->updateShipsPosition($this->playerShips);
+        $this->playerBoard->installShipsOnBoard($this->playerShips);
         foreach ($this->getErrors() as $error) {
             echo $error . PHP_EOL;
             echo PHP_EOL;
         }
-        
         
         //$fire = $this->playerBoard->addFire(67, 1);
         /*
@@ -86,6 +89,15 @@ class GameMaker
     public function fire($y, $x)
     {
         $fire = $this->playerBoard->addFire($y, $x);
+        
+        if ($this->damageManager->shipIsDestroyed($y, $x)) {
+            echo 'DESTR!';
+            $this->addError('Ship is destroyed!');
+        }
+        foreach ($this->getErrors() as $error) {
+            echo $error . PHP_EOL;
+            echo PHP_EOL;
+        }
     }
 
     public function getPlayerBoard(): GameBoard
