@@ -101,6 +101,10 @@ class GameMaker
             echo $error . PHP_EOL;
             echo PHP_EOL;
         }
+        
+        if ($this->damageManager->allShipsDestroyed()) {
+            echo 'ALL DESRTOYED!!!!';
+        }
     }
 
     public function getPlayerBoard(): GameBoard

@@ -24,9 +24,9 @@ class ConsoleInput
         return $this->input ?? '';
     }
 
-    public function isOption()
+    public function isOption(): bool
     {
-
+        return $this->inputLength() === self::MENU_OPTIONS_MAX_LENGTH;
     }
 
     /**
@@ -34,7 +34,7 @@ class ConsoleInput
      */
     public function isCoordinate(): bool
     {
-        return strlen($this->input) > self::MENU_OPTIONS_MAX_LENGTH;
+        return $this->inputLength() > self::MENU_OPTIONS_MAX_LENGTH;
     }
 
     /**
@@ -46,5 +46,13 @@ class ConsoleInput
             'y' => (int) ord(strtoupper($coordinates[0])),
             'x' => (int) substr($coordinates, 1, 2)
         ];
+    }
+    
+    /**
+     * Вычесляет длину строки ввода
+     */
+    private function inputLength(): int
+    {
+        return strlen($this->input);
     }
 }

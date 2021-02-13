@@ -51,8 +51,14 @@ $gm->allShipSet();
 
 
     //1. Вывести общее меню
+    //$view->menu();
+    //$consoleInput->read();
     //2. Новая игра
+    //$view->newGameInfo();
+    //$consoleInput->read();
     //3. Запросить расстановку кораблей
+    //$view->updateBoard();
+    //$consoleInput->read();
         //3.a Получить координаты корабля
             //3.a.1 Если координаты не корректные, вернуться в предыдущий пункт (3.a)
         //3.б Обновить доску с кораблями
@@ -74,10 +80,6 @@ $gm->allShipSet();
 
     //Опции
     //Выход
-
-$message = new GameMessage();
-
-var_dump($message);
 
 for (;;) {
     
