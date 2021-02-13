@@ -26,9 +26,9 @@ class GameMaker
         $computerOptions = $this->computerBoard->getSizeOptions();
         $this->computerDockyard = new Dockyard($computerOptions);
         $this->computerShips = new ShipStorage();
-        
+
         $this->damageManager = new ShipDamageManager($this->playerShips);
-        
+
     }
     
     //Создаем корабль и добавляем в хранилище
@@ -89,9 +89,12 @@ class GameMaker
     public function fire($y, $x)
     {
         $fire = $this->playerBoard->addFire($y, $x);
-        
+
+        $this->damageManager->setDamageMap();
+
+        $this->clearErrors();
+
         if ($this->damageManager->shipIsDestroyed($y, $x)) {
-            echo 'DESTR!';
             $this->addError('Ship is destroyed!');
         }
         foreach ($this->getErrors() as $error) {
@@ -118,5 +121,10 @@ class GameMaker
     private function addError($message): void
     {
         $this->errors[] = $message;
+    }
+
+    public function clearErrors(): void
+    {
+        $this->errors = [];
     }
 }

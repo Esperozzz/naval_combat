@@ -2,28 +2,46 @@
 
 class ShipDamageManager
 {
+    private $shipStorage;
     private $shipList;
-    
+
     public function __construct(ShipStorage $storage)
     {
-        var_dump($storage);
-        
-        $this->shipList = $storage->getShips();
+        $this->shipStorage = $storage;
     }
-    
+
+    /**
+     * Устанавливает список полей кораблей
+     */
+    public function setDamageMap(): void
+    {
+        $this->shipList = $this->shipStorage->getShips();
+    }
+
+    /**
+     * Проверяет, уничтожен ли корабль после выстрела
+     */
     public function shipIsDestroyed($y, $x): bool
     {
-        var_dump($this->shipList);
-        
         foreach ($this->shipList as $ship) {
             if ($ship->deckIsSet($y, $x) && !$ship->isDestroyed()) {
                 $ship->hit();
                 return $ship->isDestroyed();
             }
         }
-        
-        var_dump($this->shipList);
-        
         return false;
+    }
+
+    /**
+     * Проверяет, уничтожены ли все корабли на поле
+     */
+    public function allShipsDestroyed(): bool
+    {
+        foreach ($this->shipList as $ship) {
+            if (!$ship->isDestroyed()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

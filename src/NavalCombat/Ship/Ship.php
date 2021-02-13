@@ -4,7 +4,6 @@ class Ship
 {
     protected $id;
     protected $size;
-    protected $hits;
     protected $decks;
     protected $shadow;
 
@@ -54,7 +53,7 @@ class Ship
     /**
      * Проверяет наличие указанной ячейки корабля
      */
-    public function deckIsSet($y, $x): bool
+    public function deckIsSet(int $y, int $x): bool
     {
         foreach ($this->decks as $deck) {
             if (($deck['y'] == $y) && ($deck['x'] == $x)) {
@@ -67,7 +66,7 @@ class Ship
     /**
      * Удаляет ячейку корабля
      */
-    public function removeDeck($y, $x): void
+    public function removeDeck(int $y, int $x): void
     {
         foreach ($this->decks as $key => $deck) {
             if (($deck['y'] == $y) && ($deck['x'] == $x)) {
@@ -81,7 +80,7 @@ class Ship
      */
     public function isDestroyed(): bool
     {
-        return $this->hits === 0;
+        return $this->size === 0;
     }
     
     /**
@@ -92,8 +91,8 @@ class Ship
         return $this->id;
     }
     
-    private function hit(): void
+    public function hit(): void
     {
-        $this->hits--;
+        $this->size--;
     }
 }

@@ -24,6 +24,11 @@ class ConsoleInput
         return $this->input ?? '';
     }
 
+    public function isOption()
+    {
+
+    }
+
     /**
      * Проверяет, является ли ввод координатами
      */
