@@ -19,7 +19,7 @@ class ConsoleInput
     /**
      * Получить строку ввода
      */
-    public function getString(): string
+    public function toString(): string
     {
         return $this->input ?? '';
     }

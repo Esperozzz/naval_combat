@@ -2,7 +2,11 @@
 
 error_reporting(-1);
 
-
+include_once 'src/NavalCombat/GameMenu/GameMenu.php';
+include_once 'src/NavalCombat/GameMenu/MenuOption.php';
+include_once 'src/NavalCombat/GameMenu/NewGameOption.php';
+include_once 'src/NavalCombat/GameMenu/ExitOption.php';
+include_once 'src/NavalCombat/GameMenu/DefaultOption.php';
 include_once 'src/NavalCombat/Structures/MessageList.php';
 include_once 'src/NavalCombat/Structures/NamedFixedList.php';
 include_once 'src/NavalCombat/GameMaker/GameMaker.php';
@@ -49,16 +53,47 @@ foreach ($ships as $s) {
 
 $gm->allShipSet();
 
+$input = new ConsoleInput();
+$mainMenu = new GameMenu();
+$mainMenu->addCommand(new NewGameOption());
+$mainMenu->addCommand(new ExitOption());
 
-    //1. Вывести общее меню
-    //$view->menu();
-    //$consoleInput->read();
+$menu = $mainMenu->toArray();
+
+
+for (;;) {
+    
+    $view->gameMenu($menu);
+    
+    $input->read();
+    
+    
+    
+    if ($input->isOption()) {
+        $inputOption = $input->toString();
+    } else {
+        $inputOption = '';
+    }
+    
+    if ($mainMenu->readOption($inputOption)) {
+        $mainMenu->execCommand();
+    }
+    
+    //Получить ввод опции
+    //Инициализировать новый контроллер если введены другие опции
+        //Если не введены, повторить цикл с текущим контроллером
+    //Подготовить рабочие данные/инициализировать необходимые классы/обработать ввод
+    //Выполнить оперпцию
+    //Очистить экран
+    //Вывести данные на экран
+    //Проверить, закончен ли цикл, кинуть break;
+    //Сохранить данные для следующей итерации
+    
+}
+
+    //1. Вывести общее меня
     //2. Новая игра
-    //$view->newGameInfo();
-    //$consoleInput->read();
-    //3. Запросить расстановку кораблей
-    //$view->updateBoard();
-    //$consoleInput->read();
+    //3. Запросить расстановку кораблей    
         //3.a Получить координаты корабля
             //3.a.1 Если координаты не корректные, вернуться в предыдущий пункт (3.a)
         //3.б Обновить доску с кораблями
@@ -81,6 +116,9 @@ $gm->allShipSet();
     //Опции
     //Выход
 
+
+
+/*
 for (;;) {
     
     $view->clearDisplay();
@@ -126,7 +164,7 @@ for (;;) {
             break;
     }
 }
-
+*/
 
 
 

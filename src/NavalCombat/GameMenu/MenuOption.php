@@ -6,4 +6,12 @@ abstract class MenuOption
     {
         return $this->commandName;
     }
+    
+    public function getName()
+    {
+        return $this->optionName;
+    }
+    
+    abstract public function execute();
+    
 }
