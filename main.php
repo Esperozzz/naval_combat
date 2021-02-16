@@ -2,15 +2,15 @@
 
 error_reporting(-1);
 
-include_once 'src/NavalCombat/GameMenu/GameMenu.php';
-include_once 'src/NavalCombat/GameMenu/MenuOption.php';
-include_once 'src/NavalCombat/GameMenu/NewGameOption.php';
-include_once 'src/NavalCombat/GameMenu/ExitOption.php';
-include_once 'src/NavalCombat/GameMenu/DefaultOption.php';
-include_once 'src/NavalCombat/Structures/MessageList.php';
-include_once 'src/NavalCombat/Structures/NamedFixedList.php';
+include_once 'src/NavalCombat/Router/GameRouter.php';
+include_once 'src/NavalCombat/Router/Controllers/Controller.php';
+include_once 'src/NavalCombat/Router/Controllers/NewGameController.php';
+include_once 'src/NavalCombat/Router/Controllers/ExitController.php';
+include_once 'src/NavalCombat/Router/Controllers/DefaultController.php';
+include_once 'src/NavalCombat/Message/MessageList.php';
+include_once 'src/NavalCombat/Ship/NamedFixedList.php';
 include_once 'src/NavalCombat/GameMaker/GameMaker.php';
-include_once 'src/NavalCombat/GameMessage/GameMessage.php';
+include_once 'src/NavalCombat/Message/GameMessage.php';
 include_once 'src/NavalCombat/Console/ConsoleInput.php';
 include_once 'src/NavalCombat/GameBoard/GameBoard.php';
 include_once 'src/NavalCombat/GameBoard/GameBoardSizeOptions.php';
@@ -24,8 +24,6 @@ include_once 'src/NavalCombat/Ship/Cruiser.php';
 include_once 'src/NavalCombat/Ship/Battleship.php';
 include_once 'src/NavalCombat/View/View.php';
 
-$input = new ConsoleInput();
-$view = new View(true);
 $gm = new GameMaker();
 
 $menu = [
@@ -53,32 +51,13 @@ foreach ($ships as $s) {
 
 $gm->allShipSet();
 
-$input = new ConsoleInput();
-$mainMenu = new GameMenu();
-$mainMenu->addCommand(new NewGameOption());
-$mainMenu->addCommand(new ExitOption());
+$router = new GameRouter();
+$router->addCommand(new NewGameController());
+$router->addCommand(new ExitController());
 
-$menu = $mainMenu->toArray();
+$router->runGame();
 
 
-for (;;) {
-    
-    $view->gameMenu($menu);
-    
-    $input->read();
-    
-    
-    
-    if ($input->isOption()) {
-        $inputOption = $input->toString();
-    } else {
-        $inputOption = '';
-    }
-    
-    if ($mainMenu->readOption($inputOption)) {
-        $mainMenu->execCommand();
-    }
-    
     //Получить ввод опции
     //Инициализировать новый контроллер если введены другие опции
         //Если не введены, повторить цикл с текущим контроллером
@@ -88,8 +67,7 @@ for (;;) {
     //Вывести данные на экран
     //Проверить, закончен ли цикл, кинуть break;
     //Сохранить данные для следующей итерации
-    
-}
+
 
     //1. Вывести общее меня
     //2. Новая игра
