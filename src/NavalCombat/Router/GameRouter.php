@@ -11,7 +11,7 @@ class GameRouter
 
     public function __construct()
     {
-        $this->input = new ConsoleInput();
+        $this->input = ConsoleInput::init();
         $this->view = new View(false);
         $this->currentController = new DefaultController();
     }
@@ -26,17 +26,20 @@ class GameRouter
 
         for (;;) {
 
+            //View
             Controller::setMenu($this->makeMenu());
             $this->currentController->view($this->view);
 
+            //Input
+            //ConsoleInput::init()->read();
+            //$input = ConsoleInput::init()->isOption();
             $this->input->read();
-            if ($this->input->isOption()) {
-                $input = $this->input->toString();
-            } else {
-                $input = '';
-            }
+            $input = $this->input->isOption();
+            
+            //Controller
             $this->readOption($input);
 
+            //Execute
             $this->currentController->execute();
         }
     }

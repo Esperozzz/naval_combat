@@ -4,8 +4,22 @@ class ConsoleInput
 {
     private const INPUT_STRING_MAX_LENGTH = 3;
     private const MENU_OPTIONS_MAX_LENGTH = 1;
-
+    
+    private static $init = null;
     private $input;
+    
+    private function __consruct()
+    {
+        
+    }
+    
+    public static function init(): self
+    {
+        if (is_null(self::$init)) {
+            self::$init = new self();
+        }
+        return self::$init;
+    }
 
     /**
      * Считать строку ввода из консоли
@@ -24,9 +38,15 @@ class ConsoleInput
         return $this->input ?? '';
     }
 
-    public function isOption(): bool
+    /**
+     * Возвращает строку, если это опция
+     */
+    public function isOption(): string
     {
-        return $this->inputLength() === self::MENU_OPTIONS_MAX_LENGTH;
+        if ($this->inputLength() === self::MENU_OPTIONS_MAX_LENGTH) {
+            return $this->input;
+        }
+        return '';
     }
 
     /**

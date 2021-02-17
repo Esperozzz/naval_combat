@@ -91,7 +91,7 @@ class Dockyard
     }
 
     /**
-     * Подготавливает данные для созлания корабля
+     * Подготавливает данные для создания корабля
      */
     private function prepareShip($startY, $startX, $size, $orientation): array
     {
