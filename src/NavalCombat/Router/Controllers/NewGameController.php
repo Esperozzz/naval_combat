@@ -2,16 +2,11 @@
 
 class NewGameController extends Controller
 {
-    private $playerBoard;
-    private $playerDockyard;
-    private $playerShips;
+    private $playerCommand;
 
     public function __construct()
     {
-        $this->playerBoard = new GameBoard();
-        $playerOptions = $this->playerBoard->getSizeOptions();
-        $this->playerDockyard = new Dockyard($playerOptions);
-        $this->playerShips = new ShipStorage();
+        $this->playerCommand = new GameCommand();
     }
 
     public function getCommand(): string
@@ -26,7 +21,7 @@ class NewGameController extends Controller
 
     public function view(View $view): void
     {
-        $view->boardAndShadow($this->playerBoard);
+        $view->boardAndShadow($this->playerCommand->getBoard());
         
         echo 'Enter new ship coordinate: ';
     }
@@ -35,39 +30,15 @@ class NewGameController extends Controller
     {
         $input = ConsoleInput::init()->toString();
         if (ConsoleInput::init()->isCoordinate()) {
-            
-        $coord = ConsoleInput::init()->convertToCoordinate($input);
-        
-        //Создаем корабль по переданным параметрам
-        $newShip = $this->playerDockyard->constructShip(
-            $coord['y'],
-            $coord['x'],
-            1,
-            0);
-        
-        if (is_null($newShip)) {
-            //$this->addError('Unspecified ship data');
-            //return false;
-        }
-        
-        //Проверить, выходит ли корабль за пределы поля
-        
-        //Проверяем, не пересекается ли корабль с уже установленными тенями
-        if (!$this->playerBoard->canIAddAShip($newShip)) {
-            //$this->addError('The ships coordinates are not correct. A ship must not cross the boundaries of another ship.');
-            //return false;
-        }
-        
-        //Пытаемся добавить корабль в хранилище кораблей
-        $this->playerShips->add($newShip);
-            //$this->addError('The limit of ships of this type is exceeded');
-            //return false;
-        //}
-        
-        $this->playerBoard->addShipShadow($newShip);
-        //return true;
-        
-        $this->playerBoard->installShipsOnBoard($this->playerShips);
+
+            $coord = ConsoleInput::init()->convertToCoordinate($input);
+
+            //Создаем корабль по переданным параметрам
+            $newShip = $this->playerCommand->addShipOnBoard(
+                $coord['y'],
+                $coord['x'],
+                1,
+                0);
         }
         
     }

@@ -2,7 +2,6 @@
 
 class Ship
 {
-    protected $id;
     protected $size;
     protected $decks;
     protected $shadow;
@@ -10,9 +9,8 @@ class Ship
     /**
      *
      */
-    public function __construct(string $id, array $decks, array $shadow)
+    public function __construct(array $decks, array $shadow)
     {
-        $this->id = $id;
         $this->decks = $decks;
         $this->shadow = $shadow;
     }
@@ -81,14 +79,6 @@ class Ship
     public function isDestroyed(): bool
     {
         return $this->size === 0;
-    }
-    
-    /**
-     * Возвращает уникальный id корабля
-     */
-    public function getId(): string
-    {
-        return $this->id;
     }
     
     public function hit(): void

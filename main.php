@@ -8,8 +8,9 @@ include_once 'src/NavalCombat/Router/Controllers/NewGameController.php';
 include_once 'src/NavalCombat/Router/Controllers/ExitController.php';
 include_once 'src/NavalCombat/Router/Controllers/DefaultController.php';
 include_once 'src/NavalCombat/Message/MessageList.php';
+include_once 'src/NavalCombat/Message/GameMessage.php';
 include_once 'src/NavalCombat/Ship/NamedFixedList.php';
-include_once 'src/NavalCombat/GameMaker/GameMaker.php';
+include_once 'src/NavalCombat/GameCommand/GameCommand.php';
 include_once 'src/NavalCombat/Message/GameMessage.php';
 include_once 'src/NavalCombat/Console/ConsoleInput.php';
 include_once 'src/NavalCombat/GameBoard/GameBoard.php';
@@ -23,8 +24,6 @@ include_once 'src/NavalCombat/Ship/Destroyer.php';
 include_once 'src/NavalCombat/Ship/Cruiser.php';
 include_once 'src/NavalCombat/Ship/Battleship.php';
 include_once 'src/NavalCombat/View/View.php';
-
-$gm = new GameMaker();
 
 $menu = [
     1 => 'Start game',
@@ -45,12 +44,6 @@ $ships = [
     ['y' => 74, 'x' => 8, 'size' => 2, 'orient' => 0],
 ];
 
-foreach ($ships as $s) {
-    $gm->playerShipAdd($s['y'], $s['x'], $s['size'], $s['orient']);
-}
-
-$gm->allShipSet();
-
 $router = new GameRouter();
 $router->addCommand(new NewGameController());
 $router->addCommand(new ExitController());
@@ -69,7 +62,7 @@ $router->runGame();
     //Сохранить данные для следующей итерации
 
 
-    //1. Вывести общее меня
+    //1. Вывести общее меню
     //2. Новая игра
     //3. Запросить расстановку кораблей    
         //3.a Получить координаты корабля
