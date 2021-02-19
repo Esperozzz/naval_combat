@@ -31,13 +31,16 @@ class GameRouter
             $this->currentController->view($this->view);
 
             //Input
-            //ConsoleInput::init()->read();
-            //$input = ConsoleInput::init()->isOption();
             $this->input->read();
-            $input = $this->input->isOption();
-            
+
+            if ($this->input->isMenuOption()) {
+                $input = $this->input->getMenuOption();
+            } else {
+                $input = '';
+            }
+
             //Controller
-            $this->readOption($input);
+            $this->setOption($input);
 
             //Execute
             $this->currentController->execute();
@@ -53,7 +56,7 @@ class GameRouter
 
 
 
-    public function readOption(string $command): bool
+    public function setOption(string $command): bool
     {
         foreach ($this->controllers as $controller) {
             if ($controller->getCommand() === $command) {

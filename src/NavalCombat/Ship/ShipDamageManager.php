@@ -4,6 +4,7 @@ class ShipDamageManager
 {
     private $shipStorage;
     private $shipList;
+    private $damageMapIsSet = false;
 
     public function __construct(ShipStorage $storage)
     {
@@ -11,11 +12,14 @@ class ShipDamageManager
     }
 
     /**
-     * Устанавливает список полей кораблей
+     * Разово устанавливает список полей кораблей
      */
     public function setDamageMap(): void
     {
-        $this->shipList = $this->shipStorage->getShips();
+        if (!$this->damageMapIsSet) {
+            $this->shipList = $this->shipStorage->getShips();
+            $this->damageMapIsSet = true;
+        }
     }
 
     /**

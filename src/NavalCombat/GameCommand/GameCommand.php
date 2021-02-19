@@ -20,8 +20,10 @@ class GameCommand
         $this->messages = new GameMessage();
 
     }
-    
-    //Создаем корабль и добавляем в хранилище
+
+    /**
+     * Создаем корабль и добавляем в хранилище
+     */
     public function addShipOnBoard($y, $x, $size, $orientation): bool
     {
         //Создаем корабль по переданным параметрам
@@ -46,57 +48,49 @@ class GameCommand
         $this->board->addShipShadow($newShip);
         return true;
     }
-    
+
+    /**
+     *
+     */
     public function updateBoardInfo()
     {
         $this->board->installShipsOnBoard($this->ships);
     }
-    
+
+    /**
+     *
+     */
     public function allShipSet(): bool
     {
         return $this->ships->isFull();
     }
 
+    /**
+     *
+     */
     public function prepareShipDamageManager()
     {
         $this->damageManager->setDamageMap();
     }
 
+    /**
+     *
+     */
     public function fire($y, $x)
     {
         $fire = $this->board->addFire($y, $x);
 
-        $this->damageManager->setDamageMap();
+        if ($fire) {
 
-        $this->clearErrors();
+        }
 
         if ($this->damageManager->shipIsDestroyed($y, $x)) {
-            $this->addError('Ship is destroyed!');
-        }
-        foreach ($this->getErrors() as $error) {
-            echo $error . PHP_EOL;
-            echo PHP_EOL;
+            $this->messages->add('Ship is destroyed!');
         }
         
         if ($this->damageManager->allShipsDestroyed()) {
-            echo 'ALL DESRTOYED!!!!';
+            $this->messages->add('ALL DESRTOYED!!!!');
         }
-        
-        //$fire = $this->playerBoard->addFire(67, 1);
-        /*
-        $message = '';
-        switch ($fire) {
-            case (0):
-                $message = 'Miss';
-                break;
-            case (1):
-                $message = 'Hit';
-                break;
-            default:
-                $message = 'Enter a different cell';
-                break;
-        }
-        */
     }
 
     public function getBoard(): GameBoard
