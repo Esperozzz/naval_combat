@@ -29,24 +29,24 @@ class Dockyard
      */
     public function constructShip(int $startY, int $startX, int $size, int $orientation = 0): Ship
     {
-        //Переработать, создать возвращаемый тип по умолчанию
-
-
         $decks = $this->prepareShip($startY, $startX, $size, $orientation);
-        $shadow = $this->prepareShadow($decks);
+        
+        if ($this->shipPointsIsCorrect()) {
+            $shadow = $this->prepareShadow($decks);
 
-        switch ($size) {
-            case (self::BOAT_SIZE):
-                return new Boat($decks, $shadow);
-            case (self::DESTROYER_SIZE):
-                return new Destroyer($decks, $shadow);
-            case (self::CRUISER_SIZE):
-                return new Cruiser($decks, $shadow);
-            case (self::BATTLESHIP_SIZE):
-                return new Battleship($decks, $shadow);
-            default:
-                return null;
+            switch ($size) {
+                case (self::BOAT_SIZE):
+                    return new Boat($decks, $shadow);
+                case (self::DESTROYER_SIZE):
+                    return new Destroyer($decks, $shadow);
+                case (self::CRUISER_SIZE):
+                    return new Cruiser($decks, $shadow);
+                case (self::BATTLESHIP_SIZE):
+                    return new Battleship($decks, $shadow);
+            }
         }
+        
+        return new Wreck([], []);
     }
 
     /**
@@ -109,12 +109,6 @@ class Dockyard
         return $this->makeByX();
     }
 
-    public function prepareId($y, $x): string
-    {
-        $string = $y . $x . microtime();
-        return md5($string);
-    }
-
     /**
      * Возвращает поля для корабля по вертикали (ось Y)
      */
@@ -122,7 +116,7 @@ class Dockyard
     {
         $decks = [];
         
-        if ($this->sizePointsIsCorrect()) {
+        if ($this->shipPointsIsCorrect()) {
             for ($i = $this->startPointY; $i <= $this->endPointY; $i++) {
                 $decks[] = [
                     'y' => $i,
@@ -141,7 +135,7 @@ class Dockyard
     {
         $decks = [];
         
-        if ($this->sizePointsIsCorrect()) {
+        if ($this->shipPointsIsCorrect()) {
             for ($i = $this->startPointX; $i <= $this->endPointX; $i++) {
                 $decks[] = [
                     'y' => $this->startPointY,
@@ -156,27 +150,18 @@ class Dockyard
     /**
      * Проверяет корректность начальной и конечной точек корабля
      */
-    private function sizePointsIsCorrect(): bool
+    private function shipPointsIsCorrect(): bool
     {
-        return $this->isFirstPoint() && $this->isLastPoint();
+        return $this->isCorrectPoint($this->startPointY, $this->startPointX) && $this->isCorrectPoint($this->endPointY, $this->endPointX);
     }
 
     /**
-     * Проверяет на корректность начальной точки корабля
+     * Проверяет точку на корректность
      */
-    private function isFirstPoint(): bool
+    private function isCorrectPoint($y, $x): bool
     {
-        return ($this->startPointY >= $this->boardSizeOptions->getYLowBound() && $this->startPointY <= $this->boardSizeOptions->getYUpBound())
-            && ($this->startPointX >= $this->boardSizeOptions->getXLowBound() && $this->startPointX <= $this->boardSizeOptions->getXUpBound());
-    }
-
-    /**
-     * Проверяет на корректность конечной точки корабля
-     */
-    private function isLastPoint(): bool
-    {
-        return ($this->endPointY >= $this->boardSizeOptions->getYLowBound() && $this->endPointY <= $this->boardSizeOptions->getYUpBound())
-            && ($this->endPointX >= $this->boardSizeOptions->getXLowBound() && $this->endPointX <= $this->boardSizeOptions->getXUpBound());
+        return ($y >= $this->boardSizeOptions->getYLowBound() && $y <= $this->boardSizeOptions->getYUpBound())
+            && ($x >= $this->boardSizeOptions->getXLowBound() && $x <= $this->boardSizeOptions->getXUpBound());
     }
 
     /**

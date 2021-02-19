@@ -11,14 +11,13 @@ class GameCommand
     
     public function __construct()
     {
-        $this->messages = new MessageList();
-
         $this->board = new GameBoard();
         $options = $this->board->getSizeOptions();
         $this->dockyard = new Dockyard($options);
         $this->ships = new ShipStorage();
 
         $this->damageManager = new ShipDamageManager($this->ships);
+        $this->messages = new GameMessage();
 
     }
     
@@ -27,12 +26,10 @@ class GameCommand
     {
         //Создаем корабль по переданным параметрам
         $newShip = $this->dockyard->constructShip($y, $x, $size, $orientation);
-        if (is_null($newShip)) {
-            $this->messages->add('Unspecified ship data');
+        if ($newShip instanceof Wreck) {
+            $this->messages->add('Ship goes beyond the border of the playing field');
             return false;
         }
-        
-        //Проверить, выходит ли корабль за пределы поля
 
         //Проверяем, не пересекается ли корабль с уже установленными тенями
         if (!$this->board->canIAddAShip($newShip)) {
@@ -50,27 +47,19 @@ class GameCommand
         return true;
     }
     
-    
-    public function allShipSet()
+    public function updateBoardInfo()
     {
         $this->board->installShipsOnBoard($this->ships);
-        
-        //$fire = $this->playerBoard->addFire(67, 1);
-        /*
-        $message = '';
-        switch ($fire) {
-            case (0):
-                $message = 'Miss';
-                break;
-            case (1):
-                $message = 'Hit';
-                break;
-            default:
-                $message = 'Enter a different cell';
-                break;
-        }
-        */
-        
+    }
+    
+    public function allShipSet(): bool
+    {
+        return $this->ships->isFull();
+    }
+
+    public function prepareShipDamageManager()
+    {
+        $this->damageManager->setDamageMap();
     }
 
     public function fire($y, $x)
@@ -92,10 +81,31 @@ class GameCommand
         if ($this->damageManager->allShipsDestroyed()) {
             echo 'ALL DESRTOYED!!!!';
         }
+        
+        //$fire = $this->playerBoard->addFire(67, 1);
+        /*
+        $message = '';
+        switch ($fire) {
+            case (0):
+                $message = 'Miss';
+                break;
+            case (1):
+                $message = 'Hit';
+                break;
+            default:
+                $message = 'Enter a different cell';
+                break;
+        }
+        */
     }
 
     public function getBoard(): GameBoard
     {
         return $this->board;
+    }
+    
+    public function getMessages(): GameMessage
+    {
+        return $this->messages;
     }
 }

@@ -19,6 +19,7 @@ include_once 'src/NavalCombat/Ship/ShipStorage.php';
 include_once 'src/NavalCombat/Ship/ShipDamageManager.php';
 include_once 'src/NavalCombat/Ship/Dockyard.php';
 include_once 'src/NavalCombat/Ship/Ship.php';
+include_once 'src/NavalCombat/Ship/Wreck.php';
 include_once 'src/NavalCombat/Ship/Boat.php';
 include_once 'src/NavalCombat/Ship/Destroyer.php';
 include_once 'src/NavalCombat/Ship/Cruiser.php';

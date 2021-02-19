@@ -24,10 +24,12 @@ class ShipStorage
      */
     public function add(Ship $ship): bool
     {
-        foreach ($this->ships as $shipList) {
-            if ($ship->getType() === $shipList->getName()) {
-                if ($shipList->addValue($ship)) {
-                    return true;
+        if (!($ship instanceof Wreck)) {
+            foreach ($this->ships as $shipList) {
+                if ($ship->getType() === $shipList->getName()) {
+                    if ($shipList->addValue($ship)) {
+                        return true;
+                    }
                 }
             }
         }

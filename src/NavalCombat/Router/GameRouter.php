@@ -12,7 +12,7 @@ class GameRouter
     public function __construct()
     {
         $this->input = ConsoleInput::init();
-        $this->view = new View(false);
+        $this->view = new View(true);
         $this->currentController = new DefaultController();
     }
     
