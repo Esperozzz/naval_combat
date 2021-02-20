@@ -92,7 +92,7 @@ class ConsoleInput
     }
 
     /**
-     * Разбивает строку координаты y и x
+     * Разбивает строку на координаты y и x
      */
     public function getCoordinate(string $coordinates): array
     {

@@ -25,6 +25,69 @@ include_once 'src/NavalCombat/Ship/Destroyer.php';
 include_once 'src/NavalCombat/Ship/Cruiser.php';
 include_once 'src/NavalCombat/Ship/Battleship.php';
 include_once 'src/NavalCombat/View/View.php';
+include_once 'src/NavalCombat/GameBot/GameBot.php';
+
+$gBot = new GameBot();
+$view = new View();
+$GC = new GameCommand();
+
+/* Начинает установку с малого корабля
+$shipSize = 1;
+$iteration = 1;
+
+for ($count = 4; $count >= 1; $count--) {
+    for ($k = 0; $k < $count; ) {
+        $ship = $gBot->generateShipCoordinate($shipSize);
+        if ($GC->addShipOnBoard($ship['y'], $ship['x'], $ship['size'], $ship['orientation'])) {
+            $k++;
+        }
+        
+        $GC->updateBoardInfo();
+        $view->boardAndShadow($GC->getBoard());
+        sleep(1);
+        //echo $iteration++;
+        //echo PHP_EOL;
+        
+    }
+    
+    $shipSize++;
+    if ($GC->allShipSet()) {
+        break;
+    }
+}
+*/
+
+//Начинает установку с большого корабля
+
+//for () {
+$shipSize = 4;
+$iteration = 1;
+
+for ($count = 1; $count <= 4; $count++) {
+    for ($k = $count; $k > 0; ) { //затык тут
+        $ship = $gBot->generateShipCoordinate($shipSize);
+        if ($GC->addShipOnBoard($ship['y'], $ship['x'], $ship['size'], $ship['orientation'])) {
+            $k--;
+        }
+        $iteration++;
+    }
+    
+    $shipSize--;
+    if ($GC->allShipSet()) {
+        break;
+    }
+}
+
+$GC->updateBoardInfo();
+$view->boardAndShadow($GC->getBoard());
+
+echo PHP_EOL;
+echo $iteration;
+
+$GC->updateBoardInfo();
+$view->boardAndShadow($GC->getBoard());
+
+
 
 $menu = [
     1 => 'Start game',
@@ -45,11 +108,11 @@ $ships = [
     ['y' => 74, 'x' => 8, 'size' => 2, 'orient' => 0],
 ];
 
-$router = new GameRouter();
-$router->addCommand(new NewGameController());
-$router->addCommand(new ExitController());
+//$router = new GameRouter();
+//$router->addCommand(new NewGameController());
+//$router->addCommand(new ExitController());
 
-$router->runGame();
+//$router->runGame();
 
 
     //Получить ввод опции
