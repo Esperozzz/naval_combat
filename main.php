@@ -28,7 +28,7 @@ include_once 'src/NavalCombat/View/View.php';
 include_once 'src/NavalCombat/GameBot/GameBot.php';
 
 $gBot = new GameBot();
-$view = new View();
+$view = new View(false);
 $GC = new GameCommand();
 
 /* Начинает установку с малого корабля
@@ -59,17 +59,15 @@ for ($count = 4; $count >= 1; $count--) {
 
 //Начинает установку с большого корабля
 
-//for () {
 $shipSize = 4;
 $iteration = 1;
 
 for ($count = 1; $count <= 4; $count++) {
-    for ($k = $count; $k > 0; ) { //затык тут
+    for ($k = $count; $k > 0; ) {
         $ship = $gBot->generateShipCoordinate($shipSize);
         if ($GC->addShipOnBoard($ship['y'], $ship['x'], $ship['size'], $ship['orientation'])) {
             $k--;
         }
-        $iteration++;
     }
     
     $shipSize--;
@@ -77,12 +75,6 @@ for ($count = 1; $count <= 4; $count++) {
         break;
     }
 }
-
-$GC->updateBoardInfo();
-$view->boardAndShadow($GC->getBoard());
-
-echo PHP_EOL;
-echo $iteration;
 
 $GC->updateBoardInfo();
 $view->boardAndShadow($GC->getBoard());
