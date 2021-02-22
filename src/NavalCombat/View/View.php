@@ -22,15 +22,6 @@ class View
         $this->debugOn = $debugOn;
     }
     
-    public function oneBoard(GameBoard $board): void
-    {
-        foreach ($board->getShadowMap() as $rowKey => $rows) {
-            $this->viewLeftBoard($rowKey);
-            $this->viewXLine($rows, $rowKey);
-            echo PHP_EOL;
-        }
-    }
-    
     public function twoBoard(GameBoard $boardOne, GameBoard $boardTwo): void
     {
         $this->clearDisplay();

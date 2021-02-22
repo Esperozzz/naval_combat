@@ -26,6 +26,9 @@ class GameRouter
 
         for (;;) {
 
+            //Подготовка данных
+            $this->currentController->saveData();
+
             //View
             Controller::setMenu($this->makeMenu());
             $this->currentController->view($this->view);

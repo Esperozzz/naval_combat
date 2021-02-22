@@ -18,4 +18,5 @@ abstract class Controller
     abstract public function getName(): string;
     abstract public function view(View $view): void;
     abstract public function execute(): void;
+    abstract public function saveData(): void;
 }

@@ -19,8 +19,6 @@ class DefaultController extends Controller
         $view->gameMenu($menu);
     }
 
-    public function execute(): void
-    {
-
-    }
+    public function execute(): void {}
+    public function saveData(): void {}
 }

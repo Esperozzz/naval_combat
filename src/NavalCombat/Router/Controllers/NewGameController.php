@@ -2,15 +2,19 @@
 
 class NewGameController extends Controller
 {
+    private $bot;
     private $playerCommand;
-    private $damageMapIsSet = false;
-    private $shipsSetOnBorad = false;
+    private $computerCommand;
+    private $playerShipsSetOnBoard = false;
+    private $computerShipsSetOnBoard = false;
     
     private $testShips;
 
     public function __construct()
     {
+        $this->bot = new GameBot();
         $this->playerCommand = new GameCommand();
+        $this->computerCommand = new GameCommand();
         
         $ships = [
             ['y' => 70, 'x' => 5, 'size' => 4, 'orient' => 1],
@@ -29,9 +33,9 @@ class NewGameController extends Controller
 
     }
 
-    public function prepareData()
+    public function saveData(): void
     {
-        
+
     }
 
     public function view(View $view): void
@@ -42,9 +46,18 @@ class NewGameController extends Controller
             echo $message . PHP_EOL;
         }
         echo PHP_EOL;
-        
-        $view->boardAndShadow($this->playerCommand->getBoard());
-        
+
+        //Вывод игровых полей
+        if ($this->playerShipsSetOnBoard) {
+            $view->twoBoard(
+                $this->playerCommand->getBoard(),
+                $this->computerCommand->getBoard()
+            );
+        } else {
+            $view->boardAndShadow($this->playerCommand->getBoard());
+        }
+
+
         echo 'Enter new ship coordinate: ';
         
         $this->playerCommand->getMessages()->clear();
@@ -55,7 +68,7 @@ class NewGameController extends Controller
         $input = ConsoleInput::init()->toString();
 
         //Устанавливаем корабли на поле
-        if (!$this->shipsSetOnBorad) {
+        if (!$this->playerShipsSetOnBoard) {
             
             //!!!!!Установка тестовых кораблей
             foreach ($this->testShips as $ship) {
@@ -74,23 +87,41 @@ class NewGameController extends Controller
             //Обновление информации о кораблях на доске
             $this->playerCommand->updateBoardInfo();
 
-            //Если все корабли установлены
-            if ($this->playerCommand->allShipSet()) {
-
-                //Подготовка карты урона
-                $this->playerCommand->prepareShipDamageManager();
-                $this->shipsSetOnBorad = true;
-            }
         }
 
         //Если все корабли установлены, начинаем игру
-        if ($this->shipsSetOnBorad) {
+        if ($this->playerShipsSetOnBoard) {
             if (ConsoleInput::init()->isCoordinate()) {
                 $coord = ConsoleInput::init()->getCoordinate($input);
 
                 //Урон по своим кораблям!!!!!
-                $this->playerCommand->fire($coord['y'], $coord['x']);
+                $this->computerCommand->fire($coord['y'], $coord['x']);
             }
+        }
+
+        //Подготавливаем данные для игры
+        $this->dataPrepare();
+    }
+
+    private function dataPrepare(): void
+    {
+        //Устанавливаем корабли для компьютерного игрока
+        if (!$this->computerShipsSetOnBoard) {
+
+            $this->bot->generateShips($this->computerCommand);
+            $this->computerCommand->updateBoardInfo();
+            $this->computerShipsSetOnBoard = true;
+
+        }
+
+        //Если все корабли установлены
+        if ($this->playerCommand->allShipSet()) {
+
+            //Подготовка карты урона
+            $this->playerCommand->prepareShipDamageManager();
+            $this->computerCommand->prepareShipDamageManager();
+
+            $this->playerShipsSetOnBoard = true;
         }
     }
 

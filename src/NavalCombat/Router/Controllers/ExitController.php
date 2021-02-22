@@ -12,13 +12,11 @@ class ExitController extends Controller
         return 'Exit';
     }
 
-    public function view(View $view): void
-    {
-        // TODO: Implement view() method.
-    }
-
     public function execute(): void
     {
         exit();
     }
+
+    public function view(View $view): void {}
+    public function saveData(): void {}
 }

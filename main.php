@@ -26,47 +26,21 @@ include_once 'src/NavalCombat/Ship/Cruiser.php';
 include_once 'src/NavalCombat/Ship/Battleship.php';
 include_once 'src/NavalCombat/View/View.php';
 include_once 'src/NavalCombat/GameBot/GameBot.php';
-
+/*
 $gBot = new GameBot();
 $view = new View(false);
 $GC = new GameCommand();
 
-/* Начинает установку с малого корабля
-$shipSize = 1;
-$iteration = 1;
-
-for ($count = 4; $count >= 1; $count--) {
-    for ($k = 0; $k < $count; ) {
-        $ship = $gBot->generateShipCoordinate($shipSize);
-        if ($GC->addShipOnBoard($ship['y'], $ship['x'], $ship['size'], $ship['orientation'])) {
-            $k++;
-        }
-        
-        $GC->updateBoardInfo();
-        $view->boardAndShadow($GC->getBoard());
-        sleep(1);
-        //echo $iteration++;
-        //echo PHP_EOL;
-        
-    }
-    
-    $shipSize++;
-    if ($GC->allShipSet()) {
-        break;
-    }
-}
-*/
-
 //Начинает установку с большого корабля
 
 $shipSize = 4;
-$iteration = 1;
 
-for ($count = 1; $count <= 4; $count++) {
-    for ($k = $count; $k > 0; ) {
+for ($shipCount = 1; $shipCount <= 4; $shipCount++) {
+
+    for ($suitableShips = $shipCount; $suitableShips > 0; ) {
         $ship = $gBot->generateShipCoordinate($shipSize);
         if ($GC->addShipOnBoard($ship['y'], $ship['x'], $ship['size'], $ship['orientation'])) {
-            $k--;
+            $suitableShips--;
         }
     }
     
@@ -77,10 +51,10 @@ for ($count = 1; $count <= 4; $count++) {
 }
 
 $GC->updateBoardInfo();
-$view->boardAndShadow($GC->getBoard());
+$view->boardAndShadow($GC->getBoard());*/
 
 
-
+/*
 $menu = [
     1 => 'Start game',
     2 => 'Options',
@@ -98,13 +72,13 @@ $ships = [
     ['y' => 74, 'x' => 1, 'size' => 2, 'orient' => 0],
     ['y' => 71, 'x' => 1, 'size' => 3, 'orient' => 0],
     ['y' => 74, 'x' => 8, 'size' => 2, 'orient' => 0],
-];
+];*/
 
-//$router = new GameRouter();
-//$router->addCommand(new NewGameController());
-//$router->addCommand(new ExitController());
+$router = new GameRouter();
+$router->addCommand(new NewGameController());
+$router->addCommand(new ExitController());
 
-//$router->runGame();
+$router->runGame();
 
 
     //Получить ввод опции
