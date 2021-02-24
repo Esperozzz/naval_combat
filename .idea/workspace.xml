@@ -4,12 +4,13 @@
     <list default="true" id="0625d51e-cf1f-4ee8-b2aa-82ec002ed12d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.php" afterPath="$PROJECT_DIR$/main.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/NavalCombat/GameBot/GameBot.php" afterPath="$PROJECT_DIR$/src/NavalCombat/GameBot/GameBot.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/NavalCombat/Router/Controllers/Controller.php" afterPath="$PROJECT_DIR$/src/NavalCombat/Router/Controllers/Controller.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/NavalCombat/Router/Controllers/DefaultController.php" afterPath="$PROJECT_DIR$/src/NavalCombat/Router/Controllers/DefaultController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/NavalCombat/Router/Controllers/ExitController.php" afterPath="$PROJECT_DIR$/src/NavalCombat/Router/Controllers/ExitController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/NavalCombat/GameBoard/GameBoardSizeOptions.php" afterPath="$PROJECT_DIR$/src/NavalCombat/GameBoard/GameBoardSizeOptions.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/NavalCombat/GameCommand/GameCommand.php" afterPath="$PROJECT_DIR$/src/NavalCombat/GameCommand/GameCommand.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/NavalCombat/Router/Controllers/NewGameController.php" afterPath="$PROJECT_DIR$/src/NavalCombat/Router/Controllers/NewGameController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/NavalCombat/Router/GameRouter.php" afterPath="$PROJECT_DIR$/src/NavalCombat/Router/GameRouter.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/NavalCombat/Ship/Dockyard.php" afterPath="$PROJECT_DIR$/src/NavalCombat/Ship/Dockyard.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/NavalCombat/Ship/Ship.php" afterPath="$PROJECT_DIR$/src/NavalCombat/Ship/Ship.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/NavalCombat/Ship/ShipDamageManager.php" afterPath="$PROJECT_DIR$/src/NavalCombat/Ship/ShipDamageManager.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/NavalCombat/Ship/ShipStorage.php" afterPath="$PROJECT_DIR$/src/NavalCombat/Ship/ShipStorage.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/NavalCombat/View/View.php" afterPath="$PROJECT_DIR$/src/NavalCombat/View/View.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,151 +25,41 @@
     <favorites_list name="naval.combat" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.59681374">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="main.php" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/main.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="912">
-                  <caret line="74" column="4" lean-forward="true" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="4" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="GameCommand.php" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/NavalCombat/GameCommand/GameCommand.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="408">
-                  <caret line="56" column="22" lean-forward="true" selection-start-line="56" selection-start-column="22" selection-end-line="56" selection-end-column="22" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="GameRouter.php" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/NavalCombat/Router/GameRouter.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="131">
-                  <caret line="23" column="29" lean-forward="true" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ExitController.php" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/NavalCombat/Router/Controllers/ExitController.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="336">
-                  <caret line="14" column="35" lean-forward="true" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="DefaultController.php" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/NavalCombat/Router/Controllers/DefaultController.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="192">
-                  <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="NewGameController.php" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/NavalCombat/Router/Controllers/NewGameController.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="385">
-                  <caret line="103" column="5" lean-forward="true" selection-start-line="103" selection-start-column="5" selection-end-line="103" selection-end-column="5" />
-                  <folding>
-                    <element signature="n#getCommand#0;n#NewGameController#0;n#!!top" expanded="false" />
-                    <element signature="n#getName#0;n#NewGameController#0;n#!!top" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Controller.php" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/NavalCombat/Router/Controllers/Controller.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="360">
-                  <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ConsoleInput.php" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/NavalCombat/Console/ConsoleInput.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="360">
-                  <caret line="80" column="5" lean-forward="true" selection-start-line="80" selection-start-column="5" selection-end-line="80" selection-end-column="5" />
-                  <folding>
-                    <element signature="n#init#0;n#ConsoleInput#0;n#!!top" expanded="false" />
-                    <element signature="e#894#944#0#PHP" expanded="false" />
-                    <element signature="n#read#0;n#ConsoleInput#0;n#!!top" expanded="false" />
-                    <element signature="e#1103#1176#0#PHP" expanded="false" />
-                    <element signature="n#toString#0;n#ConsoleInput#0;n#!!top" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="View.php" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/NavalCombat/View/View.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="336">
-                  <caret line="14" column="22" lean-forward="true" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
-                  <folding>
-                    <element signature="n#twoBoard#0;n#View#0;n#!!top" expanded="false" />
-                    <element signature="n#boardAndShadow#0;n#View#0;n#!!top" expanded="false" />
-                    <element signature="n#gameMenu#0;n#View#0;n#!!top" expanded="false" />
-                    <element signature="n#clearDisplay#0;n#View#0;n#!!top" expanded="false" />
-                    <element signature="n#viewXLine#0;n#View#0;n#!!top" expanded="false" />
-                    <element signature="n#viewTopBoard#0;n#View#0;n#!!top" expanded="false" />
-                    <element signature="n#viewLeftBoard#0;n#View#0;n#!!top" expanded="false" />
-                    <element signature="n#getOS#0;n#View#0;n#!!top" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="MessageList.php" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/NavalCombat/Message/MessageList.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="624">
-                  <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-                  <folding>
-                    <element signature="n#__construct#0;n#MessageList#0;n#!!top" expanded="false" />
-                    <element signature="n#getAll#0;n#MessageList#0;n#!!top" expanded="false" />
-                    <element signature="n#clear#0;n#MessageList#0;n#!!top" expanded="false" />
-                    <element signature="n#add#0;n#MessageList#0;n#!!top" expanded="false" />
-                    <element signature="n#popLast#0;n#MessageList#0;n#!!top" expanded="false" />
-                    <element signature="n#isEmpty#0;n#MessageList#0;n#!!top" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="GameBot.php" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/NavalCombat/GameBot/GameBot.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="432">
-                  <caret line="18" column="27" lean-forward="true" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="main.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="97">
+              <caret line="40" column="11" lean-forward="true" selection-start-line="40" selection-start-column="11" selection-end-line="40" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameCommand.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/NavalCombat/GameCommand/GameCommand.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2352">
+              <caret line="98" column="0" lean-forward="true" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NewGameController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/NavalCombat/Router/Controllers/NewGameController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="552">
+              <caret line="26" column="30" lean-forward="true" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
+              <folding>
+                <element signature="n#getCommand#0;n#NewGameController#0;n#!!top" expanded="false" />
+                <element signature="n#getName#0;n#NewGameController#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -193,18 +84,20 @@
         <option value="$PROJECT_DIR$/src/NavalCombat/GameMaker/GameMaker.php" />
         <option value="$PROJECT_DIR$/src/NavalCombat/Structures/MessageList.php" />
         <option value="$PROJECT_DIR$/src/NavalCombat/GameMessage/GameMessage.php" />
-        <option value="$PROJECT_DIR$/src/NavalCombat/Ship/Ship.php" />
-        <option value="$PROJECT_DIR$/src/NavalCombat/Ship/Dockyard.php" />
-        <option value="$PROJECT_DIR$/src/NavalCombat/Ship/ShipDamageManager.php" />
-        <option value="$PROJECT_DIR$/src/NavalCombat/GameCommand/GameCommand.php" />
         <option value="$PROJECT_DIR$/src/NavalCombat/Console/ConsoleInput.php" />
-        <option value="$PROJECT_DIR$/src/NavalCombat/GameBot/GameBot.php" />
-        <option value="$PROJECT_DIR$/main.php" />
-        <option value="$PROJECT_DIR$/src/NavalCombat/View/View.php" />
         <option value="$PROJECT_DIR$/src/NavalCombat/Router/Controllers/Controller.php" />
         <option value="$PROJECT_DIR$/src/NavalCombat/Router/Controllers/ExitController.php" />
         <option value="$PROJECT_DIR$/src/NavalCombat/Router/Controllers/DefaultController.php" />
         <option value="$PROJECT_DIR$/src/NavalCombat/Router/GameRouter.php" />
+        <option value="$PROJECT_DIR$/src/NavalCombat/GameBot/GameBot.php" />
+        <option value="$PROJECT_DIR$/src/NavalCombat/View/View.php" />
+        <option value="$PROJECT_DIR$/src/NavalCombat/Ship/Ship.php" />
+        <option value="$PROJECT_DIR$/src/NavalCombat/Ship/ShipDamageManager.php" />
+        <option value="$PROJECT_DIR$/src/NavalCombat/Ship/ShipStorage.php" />
+        <option value="$PROJECT_DIR$/src/NavalCombat/Ship/Dockyard.php" />
+        <option value="$PROJECT_DIR$/src/NavalCombat/GameBoard/GameBoardSizeOptions.php" />
+        <option value="$PROJECT_DIR$/src/NavalCombat/GameCommand/GameCommand.php" />
+        <option value="$PROJECT_DIR$/main.php" />
         <option value="$PROJECT_DIR$/src/NavalCombat/Router/Controllers/NewGameController.php" />
       </list>
     </option>
@@ -247,7 +140,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -369,6 +261,10 @@
               <option name="myItemId" value="NavalCombat" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Message" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -460,6 +356,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -617,26 +514,28 @@
       <workItem from="1613738368894" duration="10861000" />
       <workItem from="1613842595781" duration="757000" />
       <workItem from="1613985859814" duration="10619000" />
+      <workItem from="1614069783309" duration="594000" />
+      <workItem from="1614188497318" duration="4834000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="139656000" />
+    <option name="totallyTimeSpent" value="145084000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13006397" sideWeight="0.49434572" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13219616" sideWeight="0.49434572" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13113007" sideWeight="0.5056543" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3997833" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13113007" sideWeight="0.5056543" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="PHP-CGI Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -687,7 +586,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
           <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -719,7 +617,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1128">
           <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -743,7 +640,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
           <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -854,31 +750,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/NavalCombat/Ship/ShipMaker.php" />
-    <entry file="file://$PROJECT_DIR$/src/NavalCombat/GameBoard/GameBoardSizeOptions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="23" lean-forward="true" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Ship/Boat.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/NavalCombat/Ship/Destroyer.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Ship/ShipStorage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="59" column="9" lean-forward="true" selection-start-line="59" selection-start-column="9" selection-end-line="59" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -889,70 +764,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Ship/NamedFixedList.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-95">
-          <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/NavalCombat/Console/ConsoleManager.php" />
-    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Message/GameMessage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/NavalCombat/Router/Registry.php" />
-    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Ship/Ship.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1055">
-          <caret line="14" column="32" lean-forward="true" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Ship/Dockyard.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3888">
-          <caret line="162" column="0" lean-forward="true" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Ship/ShipDamageManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="649">
-          <caret line="36" column="5" lean-forward="true" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Message/MessageList.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="624">
-          <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-          <folding>
-            <element signature="n#__construct#0;n#MessageList#0;n#!!top" expanded="false" />
-            <element signature="n#getAll#0;n#MessageList#0;n#!!top" expanded="false" />
-            <element signature="n#clear#0;n#MessageList#0;n#!!top" expanded="false" />
-            <element signature="n#add#0;n#MessageList#0;n#!!top" expanded="false" />
-            <element signature="n#popLast#0;n#MessageList#0;n#!!top" expanded="false" />
-            <element signature="n#isEmpty#0;n#MessageList#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="912">
-          <caret line="74" column="4" lean-forward="true" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/NavalCombat/GameBoard/GameBoard.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="385">
@@ -961,10 +774,79 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Message/MessageList.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="505">
+          <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/NavalCombat/GameBot/GameBot.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="51" column="16" lean-forward="true" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Message/GameMessage.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/NavalCombat/View/View.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="4" column="43" lean-forward="true" selection-start-line="4" selection-start-column="43" selection-end-line="4" selection-end-column="43" />
+          <folding>
+            <element signature="n#viewXLine#0;n#View#0;n#!!top" expanded="false" />
+            <element signature="n#viewTopBoard#0;n#View#0;n#!!top" expanded="false" />
+            <element signature="n#viewLeftBoard#0;n#View#0;n#!!top" expanded="false" />
+            <element signature="n#getOS#0;n#View#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Router/Controllers/Controller.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="9" column="5" lean-forward="true" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Router/Controllers/DefaultController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="16" column="32" lean-forward="true" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Router/Controllers/ExitController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="16" column="15" lean-forward="true" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Ship/Boat.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/NavalCombat/Console/ConsoleInput.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="80" column="5" lean-forward="true" selection-start-line="80" selection-start-column="5" selection-end-line="80" selection-end-column="5" />
+        <state relative-caret-position="2496">
+          <caret line="121" column="8" lean-forward="true" selection-start-line="121" selection-start-column="8" selection-end-line="121" selection-end-column="8" />
           <folding>
             <element signature="n#init#0;n#ConsoleInput#0;n#!!top" expanded="false" />
             <element signature="e#894#944#0#PHP" expanded="false" />
@@ -975,75 +857,82 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/NavalCombat/GameBot/GameBot.php">
+    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Ship/Dockyard.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="18" column="27" lean-forward="true" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+        <state relative-caret-position="817">
+          <caret line="159" column="7" lean-forward="true" selection-start-line="159" selection-start-column="7" selection-end-line="159" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/NavalCombat/View/View.php">
+    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Ship/NamedFixedList.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="14" column="22" lean-forward="true" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
-          <folding>
-            <element signature="n#twoBoard#0;n#View#0;n#!!top" expanded="false" />
-            <element signature="n#boardAndShadow#0;n#View#0;n#!!top" expanded="false" />
-            <element signature="n#gameMenu#0;n#View#0;n#!!top" expanded="false" />
-            <element signature="n#clearDisplay#0;n#View#0;n#!!top" expanded="false" />
-            <element signature="n#viewXLine#0;n#View#0;n#!!top" expanded="false" />
-            <element signature="n#viewTopBoard#0;n#View#0;n#!!top" expanded="false" />
-            <element signature="n#viewLeftBoard#0;n#View#0;n#!!top" expanded="false" />
-            <element signature="n#getOS#0;n#View#0;n#!!top" expanded="false" />
-          </folding>
+        <state relative-caret-position="121">
+          <caret line="21" column="42" lean-forward="true" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/NavalCombat/GameCommand/GameCommand.php">
+    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Ship/ShipStorage.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-407">
+          <caret line="21" column="10" lean-forward="true" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Ship/ShipDamageManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1">
+          <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Ship/Ship.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
-          <caret line="56" column="22" lean-forward="true" selection-start-line="56" selection-start-column="22" selection-end-line="56" selection-end-column="22" />
+          <caret line="17" column="7" lean-forward="true" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Router/Controllers/Controller.php">
+    <entry file="file://$PROJECT_DIR$/src/NavalCombat/GameBoard/GameBoardSizeOptions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        <state relative-caret-position="504">
+          <caret line="21" column="6" lean-forward="true" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="40" column="11" lean-forward="true" selection-start-line="40" selection-start-column="11" selection-end-line="40" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/NavalCombat/Router/GameRouter.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="23" column="29" lean-forward="true" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
+        <state relative-caret-position="25">
+          <caret line="13" column="28" lean-forward="false" selection-start-line="13" selection-start-column="28" selection-end-line="13" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Router/Controllers/ExitController.php">
+    <entry file="file://$PROJECT_DIR$/src/NavalCombat/GameCommand/GameCommand.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="14" column="35" lean-forward="true" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/NavalCombat/Router/Controllers/DefaultController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state relative-caret-position="2352">
+          <caret line="98" column="0" lean-forward="true" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/NavalCombat/Router/Controllers/NewGameController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="103" column="5" lean-forward="true" selection-start-line="103" selection-start-column="5" selection-end-line="103" selection-end-column="5" />
+        <state relative-caret-position="552">
+          <caret line="26" column="30" lean-forward="true" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
           <folding>
             <element signature="n#getCommand#0;n#NewGameController#0;n#!!top" expanded="false" />
             <element signature="n#getName#0;n#NewGameController#0;n#!!top" expanded="false" />

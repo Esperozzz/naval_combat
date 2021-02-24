@@ -8,7 +8,10 @@ class ShipStorage
     private const BOAT_LIMIT = 4;
 
     private $ships;
-    
+
+    /**
+     *
+     */
     public function __construct()
     {
         $this->ships = [

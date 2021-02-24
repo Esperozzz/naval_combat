@@ -8,7 +8,10 @@ class GameCommand
     private $damageManager;
     
     private $messages;
-    
+
+    /**
+     *
+     */
     public function __construct()
     {
         $this->board = new GameBoard();
@@ -23,7 +26,7 @@ class GameCommand
     /**
      * Создаем корабль и добавляем в хранилище
      */
-    public function addShipOnBoard($y, $x, $size, $orientation): bool
+    public function addShipOnBoard(int $y, int $x, int $size, int $orientation): bool
     {
         //Создаем корабль по переданным параметрам
         $newShip = $this->dockyard->constructShip($y, $x, $size, $orientation);
@@ -75,7 +78,7 @@ class GameCommand
     /**
      *
      */
-    public function fire($y, $x)
+    public function fire(int $y, int $x)
     {
         switch ($this->board->addFire($y, $x)) {
             case (0):
@@ -92,7 +95,10 @@ class GameCommand
         if ($this->damageManager->shipIsDestroyed($y, $x)) {
             $this->messages->add('Ship is destroyed!');
         }
-        
+    }
+
+    public function shipsDestroyed(): bool
+    {
         if ($this->damageManager->allShipsDestroyed()) {
             $this->messages->add('ALL DESRTOYED!!!!');
         }

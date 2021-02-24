@@ -78,14 +78,20 @@ class View
         $this->messagePanelBoard();
         $this->inputMessage();
     }
-    
+
+    /**
+     *
+     */
     public function gameMenu(array $menu): void
     {
         foreach ($menu as $key => $option) {
             echo "[{$key}] $option" . PHP_EOL;
         }
     }
-    
+
+    /**
+     *
+     */
     public function clearDisplay(): void
     {
         if ($this->debugOn) {
@@ -98,25 +104,38 @@ class View
             system('clear');
         }
     }
-    
+
+    /**
+     *
+     */
     public function setMessage(string $message)
     {
         $this->message = $message;
     }
-    
+
+    /**
+     *
+     */
     public function inputMessage(): void
     {
         echo 'Enter new ship coordinate: ';
     }
-    
+
+    /**
+     *
+     */
     private function messagePanel(string $message): void
     {
+        $prepareMessage = $this->prepareMessage($message);
+
         $this->messagePanelBoard();
-        $message = $this->prepareMessage($message);
-        $this->message($message);
+        $this->message($prepareMessage);
         $this->messagePanelBoard();
     }
-    
+
+    /**
+     *
+     */
     private function prepareMessage(string $message): array
     {
         if (mb_strlen($message) >= self::MAX_MESSAGE_LENGTH) {
@@ -141,8 +160,11 @@ class View
         
         return $newMessage;
     }
-    
-    private function message(array $message)
+
+    /**
+     *
+     */
+    private function message(array $message): void
     {
         if (empty($message[1])) {
             $message[1] = $message[0];
@@ -156,8 +178,11 @@ class View
             echo PHP_EOL;
         }
     }
-    
-    private function messagePanelBoard()
+
+    /**
+     *
+     */
+    private function messagePanelBoard(): void
     {
         for ($i = 0; $i < self::MESSAGE_PANEL_BOARD_LENGTH; $i++) {
             echo self::MESSAGE_PANEL_BOARD_VIEW;

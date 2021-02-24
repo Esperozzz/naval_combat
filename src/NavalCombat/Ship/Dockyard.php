@@ -3,7 +3,6 @@
 class Dockyard
 {
     private const Y_ORIENTATION = 1;
-    private const X_ORIENTATION = 0;
     
     private const BOAT_SIZE = 1;
     private const DESTROYER_SIZE = 2;
@@ -19,6 +18,9 @@ class Dockyard
 
     private $boardSizeOptions;
 
+    /**
+     *
+     */
     public function __construct(GameBoardSizeOptions $BoardSizeOptions)
     {
         $this->boardSizeOptions = $BoardSizeOptions;

@@ -26,53 +26,6 @@ include_once 'src/NavalCombat/Ship/Cruiser.php';
 include_once 'src/NavalCombat/Ship/Battleship.php';
 include_once 'src/NavalCombat/View/View.php';
 include_once 'src/NavalCombat/GameBot/GameBot.php';
-/*
-$gBot = new GameBot();
-$view = new View(false);
-$GC = new GameCommand();
-
-//Начинает установку с большого корабля
-
-$shipSize = 4;
-
-for ($shipCount = 1; $shipCount <= 4; $shipCount++) {
-
-    for ($suitableShips = $shipCount; $suitableShips > 0; ) {
-        $ship = $gBot->generateShipCoordinate($shipSize);
-        if ($GC->addShipOnBoard($ship['y'], $ship['x'], $ship['size'], $ship['orientation'])) {
-            $suitableShips--;
-        }
-    }
-    
-    $shipSize--;
-    if ($GC->allShipSet()) {
-        break;
-    }
-}
-
-$GC->updateBoardInfo();
-$view->boardAndShadow($GC->getBoard());*/
-
-
-/*
-$menu = [
-    1 => 'Start game',
-    2 => 'Options',
-    'x' => 'Exit'
-];
-
-$ships = [
-    ['y' => 70, 'x' => 5, 'size' => 4, 'orient' => 1],
-    ['y' => 65, 'x' => 2, 'size' => 1, 'orient' => 0],
-    ['y' => 65, 'x' => 7, 'size' => 3, 'orient' => 1],
-    ['y' => 67, 'x' => 1, 'size' => 1, 'orient' => 1],
-    ['y' => 68, 'x' => 3, 'size' => 1, 'orient' => 1],
-    ['y' => 69, 'x' => 1, 'size' => 1, 'orient' => 1],
-    ['y' => 70, 'x' => 8, 'size' => 2, 'orient' => 0],
-    ['y' => 74, 'x' => 1, 'size' => 2, 'orient' => 0],
-    ['y' => 71, 'x' => 1, 'size' => 3, 'orient' => 0],
-    ['y' => 74, 'x' => 8, 'size' => 2, 'orient' => 0],
-];*/
 
 $router = new GameRouter();
 $router->addCommand(new NewGameController());
@@ -116,58 +69,4 @@ $router->runGame();
 
     //Опции
     //Выход
-
-
-
-/*
-for (;;) {
-    
-    $view->clearDisplay();
-    
-    $view->gameMenu($menu);
-    
-    echo 'Select option: ';
-    $input->read();
-    $arguments = $input->getString();
-    
-    switch ($arguments) {
-        case (1):
-        
-            for (;;) {
-                //Вывод
-                $view->clearDisplay();
-                $view->boardAndShadow($gm->getPlayerBoard());
-                echo 'Enter fire: ';
-                
-                //Ввод
-                $input->read();
-                $arguments = $input->getString();
-
-                //Получение координат выстрела
-                if ($input->isCoordinate()) {
-                    $coord = $input->convertToCoordinate($arguments);
-                    
-                    $gm->fire($coord['y'], $coord['x']);
-                }
-                
-                if ($arguments == 'x') {
-                    break;
-                }
-            }
-            
-            break;
-        case (2):
-            echo 'Options' .  PHP_EOL;
-            break;
-        case ('x'):
-            exit();
-        default:
-            break;
-    }
-}
-*/
-
-
-
-
 

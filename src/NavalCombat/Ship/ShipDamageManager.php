@@ -6,6 +6,9 @@ class ShipDamageManager
     private $shipList;
     private $damageMapIsSet = false;
 
+    /**
+     *
+     */
     public function __construct(ShipStorage $storage)
     {
         $this->shipStorage = $storage;

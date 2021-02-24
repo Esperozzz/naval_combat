@@ -1,6 +1,6 @@
 <?php
 
-class Ship
+abstract class Ship
 {
     protected $size;
     protected $decks;
@@ -54,7 +54,7 @@ class Ship
     public function deckIsSet(int $y, int $x): bool
     {
         foreach ($this->decks as $deck) {
-            if (($deck['y'] == $y) && ($deck['x'] == $x)) {
+            if (($deck['y'] === $y) && ($deck['x'] === $x)) {
                 return true;
             }
         }
@@ -67,20 +67,23 @@ class Ship
     public function removeDeck(int $y, int $x): void
     {
         foreach ($this->decks as $key => $deck) {
-            if (($deck['y'] == $y) && ($deck['x'] == $x)) {
+            if (($deck['y'] === $y) && ($deck['x'] === $x)) {
                 unset($this->decks[$key]);
             }
         }
     }
 
     /**
-     * Проверяет уничтожен ли корабль
+     * Проверяет, уничтожен ли корабль
      */
     public function isDestroyed(): bool
     {
         return $this->size === 0;
     }
-    
+
+    /**
+     * Уменьшает количество жизней корабля
+     */
     public function hit(): void
     {
         $this->size--;

@@ -28,7 +28,7 @@ class NewGameController extends Controller
             ['y' => 71, 'x' => 1, 'size' => 3, 'orient' => 0],
             ['y' => 74, 'x' => 8, 'size' => 2, 'orient' => 0],
         ];
-        
+
         $this->testShips = $ships;
 
     }
@@ -40,9 +40,9 @@ class NewGameController extends Controller
 
     public function view(View $view): void
     {
-        $message = $this->computerCommand->getMessages()->get();
-        
-        $view->setMessage($message);
+        $computerMessage = $this->computerCommand->getMessages()->get();
+        $playerMessage = $this->computerCommand->getMessages()->get();
+        $view->setMessage($computerMessage);
         
         //Вывод игровых полей
         if ($this->playerShipsSetOnBoard) {
