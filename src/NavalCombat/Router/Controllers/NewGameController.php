@@ -40,13 +40,10 @@ class NewGameController extends Controller
 
     public function view(View $view): void
     {
-        $messages = $this->playerCommand->getMessages()->getAll();
+        $message = $this->computerCommand->getMessages()->get();
         
-        foreach ($messages as $message) {
-            echo $message . PHP_EOL;
-        }
-        echo PHP_EOL;
-
+        $view->setMessage($message);
+        
         //Вывод игровых полей
         if ($this->playerShipsSetOnBoard) {
             $view->twoBoard(
@@ -56,11 +53,8 @@ class NewGameController extends Controller
         } else {
             $view->boardAndShadow($this->playerCommand->getBoard());
         }
-
-
-        echo 'Enter new ship coordinate: ';
         
-        $this->playerCommand->getMessages()->clear();
+        $this->computerCommand->getMessages()->clear();
     }
 
     public function execute(): void

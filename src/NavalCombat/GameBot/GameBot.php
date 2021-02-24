@@ -22,7 +22,7 @@ class GameBot
     private const Y_ORIENTATION = 1;
     private const X_ORIENTATION = 0;
 
-    public function generateShips(GameCommand $gameCommandObj)
+    public function generateShips(GameCommand $gameCommandObj): void
     {
         $shipSize = self::MAX_SHIPS_SIZE;
 
@@ -48,15 +48,15 @@ class GameBot
         
         if ((bool) $orientation) {
             $upY = self::Y_UP_BOUND - $size;
-            $lowY = self::Y_LOW_BOUND;
             $upX = self::X_UP_BOUND;
-            $lowX = self::X_LOW_BOUND;
         } else {
             $upY = self::Y_UP_BOUND;
-            $lowY = self::Y_LOW_BOUND;
             $upX = self::X_UP_BOUND - $size;
-            $lowX = self::X_LOW_BOUND;
+            
         }
+        
+        $lowY = self::Y_LOW_BOUND;
+        $lowX = self::X_LOW_BOUND;
         
         $firtsPointY = mt_rand($lowY, $upY);
         $firtsPointX = mt_rand($lowX, $upX);

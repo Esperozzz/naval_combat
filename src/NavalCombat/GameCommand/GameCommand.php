@@ -18,7 +18,6 @@ class GameCommand
 
         $this->damageManager = new ShipDamageManager($this->ships);
         $this->messages = new GameMessage();
-
     }
 
     /**
@@ -52,7 +51,7 @@ class GameCommand
     /**
      *
      */
-    public function updateBoardInfo()
+    public function updateBoardInfo(): void
     {
         $this->board->installShipsOnBoard($this->ships);
     }
@@ -68,7 +67,7 @@ class GameCommand
     /**
      *
      */
-    public function prepareShipDamageManager()
+    public function prepareShipDamageManager(): void
     {
         $this->damageManager->setDamageMap();
     }
@@ -78,10 +77,16 @@ class GameCommand
      */
     public function fire($y, $x)
     {
-        $fire = $this->board->addFire($y, $x);
-
-        if ($fire) {
-
+        switch ($this->board->addFire($y, $x)) {
+            case (0):
+                $this->messages->add('You missed!');
+                break;
+            case (1):
+                $this->messages->add('Ship is damaged!');
+                break;
+            default:
+                $this->messages->add('Such coordinates have already been. Repeat the move.');
+                break;
         }
 
         if ($this->damageManager->shipIsDestroyed($y, $x)) {
