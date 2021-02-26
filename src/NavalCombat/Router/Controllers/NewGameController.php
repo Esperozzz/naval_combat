@@ -12,15 +12,15 @@ class NewGameController extends Controller
 
     public function __construct()
     {
-        $this->bot = new GameBot();
         $this->playerCommand = new GameCommand();
         $this->computerCommand = new GameCommand();
+        $this->bot = new GameBot($this->computerCommand);
         
         $ships = [
             ['y' => 70, 'x' => 5, 'size' => 4, 'orient' => 1],
             ['y' => 65, 'x' => 2, 'size' => 1, 'orient' => 0],
             ['y' => 65, 'x' => 7, 'size' => 3, 'orient' => 1],
-            ['y' => 67, 'x' => 1, 'size' => 1, 'orient' => 1],
+            //['y' => 67, 'x' => 1, 'size' => 1, 'orient' => 1],
             ['y' => 68, 'x' => 3, 'size' => 1, 'orient' => 1],
             ['y' => 69, 'x' => 1, 'size' => 1, 'orient' => 1],
             ['y' => 70, 'x' => 8, 'size' => 2, 'orient' => 0],
@@ -88,8 +88,11 @@ class NewGameController extends Controller
             if (ConsoleInput::init()->isCoordinate()) {
                 $coord = ConsoleInput::init()->getCoordinate($input);
 
-                //Урон по своим кораблям!!!!!
+                //Урон игрока по полю компьютера
                 $this->computerCommand->fire($coord['y'], $coord['x']);
+                
+                //Урон компьютера по полю игрока
+                $this->bot->addFire($this->playerCommand);
             }
         }
 
@@ -102,7 +105,7 @@ class NewGameController extends Controller
         //Устанавливаем корабли для компьютерного игрока
         if (!$this->computerShipsSetOnBoard) {
 
-            $this->bot->generateShips($this->computerCommand);
+            $this->bot->generateShips();
             $this->computerCommand->updateBoardInfo();
             $this->computerShipsSetOnBoard = true;
 
@@ -117,6 +120,11 @@ class NewGameController extends Controller
 
             $this->playerShipsSetOnBoard = true;
         }
+    }
+    
+    public function breakController(): bool
+    {
+        return false;
     }
 
     public function getCommand(): string

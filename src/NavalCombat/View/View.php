@@ -14,15 +14,18 @@ class View
     private const LINUX_OS = '';
     private const WIN_OS = 'Windows_NT';
 
-    private const EMPTY_CELL = '.';
+    private const EMPTY_CELL = '~';
     private const SHIP_CELL = 'H';
     private const DESTROY_CELL = 'X';
     private const MISS_CELL = 'o';
+    private const SHADOW_CELL = '*';
     
     private $boardOne;
     private $boardTwo;
     
     private $debugOn;
+    
+    private $hideShipsOnTwoBoard = true;
     
     private $message = '';
     
@@ -47,10 +50,11 @@ class View
             echo '  ';
             
             $this->viewLeftBoard($rowKey);
-            $this->viewXLine($boardTwo[$rowKey], $rowKey);
+            $this->viewXLine($boardTwo[$rowKey], $rowKey, $this->hideShipsOnTwoBoard);
             
             echo PHP_EOL;
         }
+        
         $this->messagePanelBoard();
         $this->inputMessage();
     }
@@ -190,20 +194,47 @@ class View
         echo PHP_EOL;
     }
     
-    private function viewXLine(array $arr, $rowKey): void
+    private function viewXLine(array $arr, $rowKey, bool $shipHidden = false): void
     {
         foreach ($arr as $colKey => $col) {
-            $this->viewTopBoard($rowKey, $colKey, $col);
+            echo $this->viewTopBoard($rowKey, $colKey, $col, $shipHidden);
         }
     }
     
-    private function viewTopBoard($rowKey, $colKey, $col): void
+    private function convertCellType(int $type, bool $shipHidden): string
+    {
+        if ($shipHidden) {
+            switch ($type) {
+                case (1):
+                    return self::MISS_CELL;
+                case (3):
+                    return self::DESTROY_CELL;
+                default:
+                    return self::EMPTY_CELL;
+            }
+        } else {
+            switch ($type) {
+                case (0):
+                    return self::EMPTY_CELL;
+                case (1):
+                    return self::MISS_CELL;
+                case (2):
+                    return self::SHIP_CELL;
+                case (3):
+                    return self::DESTROY_CELL;
+                case (4):
+                    return self::SHADOW_CELL;
+            }
+        }
+    }
+    
+    private function viewTopBoard($rowKey, $colKey, $col, bool $shipHidden): string
     {
         if ($rowKey === self::ASCII_COMMERCIAL_AT) {
-                echo $colKey . ' ';
-            } else {
-                echo $col . ' ';
-            }
+                return $colKey . ' ';
+        }
+        
+        return $this->convertCellType($col, $shipHidden) . ' ';
     }
     
     private function viewLeftBoard($key): void

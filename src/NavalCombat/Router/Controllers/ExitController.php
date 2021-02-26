@@ -19,4 +19,9 @@ class ExitController extends Controller
 
     public function view(View $view): void {}
     public function saveData(): void {}
+    
+    public function breakController(): bool
+    {
+        return false;
+    }
 }

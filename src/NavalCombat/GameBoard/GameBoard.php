@@ -7,12 +7,12 @@ class GameBoard
     private const Y_UP_BOUND = 74;
     private const X_UP_BOUND = 10;
 
-    private const SHADOW_CELL = '*';
+    private const SHADOW_CELL = 4;
 
-    private const EMPTY_CELL = '.';
-    private const MISS_CELL = 'o';
-    private const SHIP_CELL = 'H';
-    private const DESTROY_CELL = 'X';
+    private const EMPTY_CELL = 0;
+    private const MISS_CELL = 1;
+    private const SHIP_CELL = 2;
+    private const DESTROY_CELL = 3;
     
     private $boardMap;
     private $shadowMap;

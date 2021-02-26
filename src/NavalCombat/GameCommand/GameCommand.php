@@ -78,14 +78,18 @@ class GameCommand
     /**
      *
      */
-    public function fire(int $y, int $x)
+    public function fire(int $y, int $x): bool
     {
+        $status = false;
+        
         switch ($this->board->addFire($y, $x)) {
             case (0):
                 $this->messages->add('You missed!');
+                $status = true;
                 break;
             case (1):
                 $this->messages->add('Ship is damaged!');
+                $status = true;
                 break;
             default:
                 $this->messages->add('Such coordinates have already been. Repeat the move.');
@@ -95,6 +99,8 @@ class GameCommand
         if ($this->damageManager->shipIsDestroyed($y, $x)) {
             $this->messages->add('Ship is destroyed!');
         }
+        
+        return $status;
     }
 
     public function shipsDestroyed(): bool

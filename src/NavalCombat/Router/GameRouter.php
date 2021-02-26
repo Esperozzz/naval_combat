@@ -29,13 +29,14 @@ class GameRouter
             //Подготовка данных
             $this->currentController->saveData();
 
-            //View
+            //Вывод меню
             Controller::setMenu($this->makeMenu());
+            
+            //View
             $this->currentController->view($this->view);
 
-            //Input
+            //Обработка ввода
             $this->input->read();
-
             if ($this->input->isMenuOption()) {
                 $input = $this->input->getMenuOption();
             } else {
