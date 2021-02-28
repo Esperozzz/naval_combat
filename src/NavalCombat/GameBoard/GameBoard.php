@@ -7,17 +7,23 @@ class GameBoard
     private const Y_UP_BOUND = 74;
     private const X_UP_BOUND = 10;
 
-    private const SHADOW_CELL = 4;
-
     private const EMPTY_CELL = 0;
     private const MISS_CELL = 1;
     private const SHIP_CELL = 2;
     private const DESTROY_CELL = 3;
-    
+    private const SHADOW_CELL = 4;
+    private const BAD_CELL = 99;
+
+    private const MISS = 0;
+    private const HIT = 1;
+    private const OTHER_DAMAGE = -1;
+
     private $boardMap;
     private $shadowMap;
-    private $ships = [];
-    
+
+    /**
+     * Заполняет карту тени и игровой доски
+     */
     public function __construct()
     {
         $this->boardMap = $this->create();
@@ -81,18 +87,22 @@ class GameBoard
             }
         }
     }
-    
-    public function addFire($y, $x): int
+
+    /**
+     * Добавляет выстрел на игровую доску
+     * Возвращает статусы попадания: 0 - промах, 1 - попадание, -1 - пвторение попадание в занятое поле
+     */
+    public function addFire(int $y, int $x): int
     {
-        switch ($this->boardMap[$y][$x]) {
+        switch ($this->getCell($y, $x)) {
             case (self::EMPTY_CELL):
                 $this->addMissCell($y, $x);
-                return 0;
+                return self::MISS;
             case (self::SHIP_CELL):
                 $this->addDamageCell($y, $x);
-                return 1;
+                return self::HIT;
             default:
-                return -1;
+                return self::OTHER_DAMAGE;
         }
     }
 
@@ -182,7 +192,18 @@ class GameBoard
     {
         return $this->shadowMap[$y][$x];
     }
-    
+
+    /**
+     * Получает состояние ячейки игровой доски
+     */
+    private function getCell(int $y, int $x): int
+    {
+        if ($this->isSetCell($y, $x)) {
+            return $this->boardMap[$y][$x];
+        }
+        return self::BAD_CELL;
+    }
+
     /**
      * Проверяет существование ячейки на игровой доске
      */

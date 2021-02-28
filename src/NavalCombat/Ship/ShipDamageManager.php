@@ -28,7 +28,7 @@ class ShipDamageManager
     /**
      * Проверяет, уничтожен ли корабль после выстрела
      */
-    public function shipIsDestroyed($y, $x): bool
+    public function shipIsDestroyed(int $y, int $x): bool
     {
         foreach ($this->shipList as $ship) {
             if ($ship->deckIsSet($y, $x) && !$ship->isDestroyed()) {

@@ -28,9 +28,8 @@ include_once 'src/NavalCombat/View/View.php';
 include_once 'src/NavalCombat/GameBot/GameBot.php';
 
 $router = new GameRouter();
-$router->addCommand(new NewGameController());
-$router->addCommand(new ExitController());
-
+$router->addController(new NewGameController());
+$router->addController(new ExitController());
 $router->runGame();
 
 

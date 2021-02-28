@@ -22,7 +22,7 @@ class DefaultController extends Controller
     public function execute(): void {}
     public function saveData(): void {}
     
-    public function breakController(): bool
+    public function loopIsInterrupted(): bool
     {
         return false;
     }

@@ -19,5 +19,5 @@ abstract class Controller
     abstract public function view(View $view): void;
     abstract public function execute(): void;
     abstract public function saveData(): void;
-    abstract public function breakController(): bool;
+    abstract public function loopIsInterrupted(): bool;
 }

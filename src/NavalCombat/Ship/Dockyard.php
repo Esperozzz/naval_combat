@@ -96,7 +96,7 @@ class Dockyard
     /**
      * Подготавливает данные для создания корабля
      */
-    private function prepareShip($startY, $startX, $size, $orientation): array
+    private function prepareShip(int $startY, int $startX, int $size, int $orientation): array
     {
         $this->startPointY = $startY;
         $this->startPointX = $startX;
@@ -106,15 +106,15 @@ class Dockyard
         $this->makeEndShipPoint();
         
         if ($orientation === self::Y_ORIENTATION) {
-            return $this->makeByY();
+            return $this->makeShipByY();
         }
-        return $this->makeByX();
+        return $this->makeShipByX();
     }
 
     /**
      * Возвращает поля для корабля по вертикали (ось Y)
      */
-    private function makeByY(): array
+    private function makeShipByY(): array
     {
         $decks = [];
         
@@ -133,7 +133,7 @@ class Dockyard
     /**
      * Возвращает поля для корабля по горизонтали (ось X)
      */
-    private function makeByX(): array
+    private function makeShipByX(): array
     {
         $decks = [];
         
@@ -160,7 +160,7 @@ class Dockyard
     /**
      * Проверяет точку на корректность
      */
-    private function isCorrectPoint($y, $x): bool
+    private function isCorrectPoint(int $y, int $x): bool
     {
         return ($y >= $this->boardSizeOptions->getYLowBound() && $y <= $this->boardSizeOptions->getYUpBound())
             && ($x >= $this->boardSizeOptions->getXLowBound() && $x <= $this->boardSizeOptions->getXUpBound());
@@ -175,8 +175,8 @@ class Dockyard
             $this->endPointY = ($this->startPointY + $this->size) - 1;
             $this->endPointX = $this->startPointX;
         } else {
-            $this->endPointX = ($this->startPointX + $this->size) - 1;
             $this->endPointY = $this->startPointY;
+            $this->endPointX = ($this->startPointX + $this->size) - 1;
         }
     }
 }

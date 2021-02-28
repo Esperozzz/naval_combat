@@ -107,7 +107,9 @@ class GameCommand
     {
         if ($this->damageManager->allShipsDestroyed()) {
             $this->messages->add('ALL DESRTOYED!!!!');
+            return true;
         }
+        return false;
     }
 
     public function getBoard(): GameBoard
@@ -118,5 +120,13 @@ class GameCommand
     public function getMessages(): GameMessage
     {
         return $this->messages;
+    }
+
+    /**
+     * Проверяет, все ли данные для создания корабля готовы
+     */
+    private function shipIsComplete(): bool
+    {
+
     }
 }

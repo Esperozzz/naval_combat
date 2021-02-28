@@ -122,7 +122,7 @@ class NewGameController extends Controller
         }
     }
     
-    public function breakController(): bool
+    public function loopIsInterrupted(): bool
     {
         return false;
     }

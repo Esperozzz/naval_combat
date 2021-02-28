@@ -16,7 +16,7 @@ class GameRouter
         $this->currentController = new DefaultController();
     }
     
-    public function addCommand(Controller $controller)
+    public function addController(Controller $controller)
     {
         $this->controllers[] = $controller;
     }
