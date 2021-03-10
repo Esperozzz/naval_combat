@@ -8,6 +8,8 @@ class NewGameController extends Controller
     private $playerShipsSetOnBoard = false;
     private $computerShipsSetOnBoard = false;
     
+    private $messageManager;
+    
     private $testShips;
 
     public function __construct()
@@ -15,6 +17,8 @@ class NewGameController extends Controller
         $this->playerCommand = new GameCommand();
         $this->computerCommand = new GameCommand();
         $this->bot = new GameBot($this->computerCommand);
+        
+        $this->messageManager = new MessageManager();
         
         $ships = [
             ['y' => 70, 'x' => 5, 'size' => 4, 'orient' => 1],

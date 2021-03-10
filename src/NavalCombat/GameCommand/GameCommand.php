@@ -22,7 +22,7 @@ class GameCommand
     private $messages;
 
     /**
-     *
+     * Класс является оболочкой для команд относящихся к игровой механтке
      */
     public function __construct()
     {
@@ -52,7 +52,7 @@ class GameCommand
     }
 
     /**
-     *
+     * Обновляет информацию о кораблях на игровом поле
      */
     public function updateBoardInfo(): void
     {
@@ -60,16 +60,19 @@ class GameCommand
     }
 
     /**
-     *
+     * Проверяет, все ли корабли установлены на игровое поле
      */
     public function allShipSet(): bool
     {
-        $this->state = self::STATE_ALL_SHIPS_SET;
-        return $this->ships->isFull();
+        if ($this->ships->isFull()) {
+            $this->state = self::STATE_ALL_SHIPS_SET;
+            return true;
+        }
+        return false;
     }
 
     /**
-     *
+     * Подготавливает карту урона кораблей
      */
     public function prepareShipDamageManager(): void
     {
@@ -113,7 +116,7 @@ class GameCommand
     }
 
     /**
-     *
+     * Проверяет, уничтожен ли корабль
      */
     public function shipsIsDestroyed(): bool
     {
@@ -142,20 +145,23 @@ class GameCommand
     }
 
     /**
-     * Возвращает состояние выполнения команд
+     * Возвращает статус выполнения команд
      */
     public function getState(): int
     {
         return $this->state;
     }
 
+    /**
+     * Приводит статус выполнения команд к значению по умолчанию
+     */
     public function resetState(): void
     {
         $this->state = self::STATE_DEFAULT;
     }
 
     /**
-     *
+     * Пытается создать корабль по полученным координатам
      */
     private function shipParamsIsCorrect(Ship $ship): bool
     {
@@ -168,7 +174,7 @@ class GameCommand
     }
 
     /**
-     *
+     * Провеояет корректность указанных координат корабля
      */
     private function shipShadowIsCorrect(Ship $ship): bool
     {
@@ -181,7 +187,7 @@ class GameCommand
     }
     
     /**
-     *
+     * Пытается добавить корабль в хранилище кораблей
      */
     private function shipIsSave(Ship $ship): bool
     {
