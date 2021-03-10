@@ -15,7 +15,9 @@ class DefaultController extends Controller
     public function view(View $view): void
     {
         $menu = self::getMenu();
-
+        
+        $view->mainMenu();
+        
         $view->gameMenu($menu);
     }
 

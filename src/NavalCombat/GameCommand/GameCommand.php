@@ -2,11 +2,23 @@
 
 class GameCommand
 {
+    private const STATE_DEFAULT = 0;
+    private const STATE_MISFIRE = 1;
+    private const STATE_HIT_ON_THE_SHIP = 2;
+    private const STATE_SHIP_DESTROYED = 3;
+    private const STATE_ALL_SHIPS_DESTROYED = 4;
+    private const STATE_SHIP_LIMIT_REACHED = 5;
+    private const STATE_SHIP_COORDINATES_NOT_CORRECT = 6;
+    private const STATE_SHIP_GOES_OUTSIDE_THE_FIELD = 7;
+    private const STATE_COORDINATES_ALREADY_SET = 8;
+    private const STATE_ALL_SHIPS_SET = 9;
+    
     private $board;
     private $dockyard;
     private $ships;
     private $damageManager;
     
+    private $state;
     private $messages;
 
     /**
@@ -14,6 +26,8 @@ class GameCommand
      */
     public function __construct()
     {
+        $this->state = self::STATE_DEFAULT;
+        
         $this->board = new GameBoard();
         $options = $this->board->getSizeOptions();
         $this->dockyard = new Dockyard($options);
@@ -28,27 +42,13 @@ class GameCommand
      */
     public function addShipOnBoard(int $y, int $x, int $size, int $orientation): bool
     {
-        //Создаем корабль по переданным параметрам
         $newShip = $this->dockyard->constructShip($y, $x, $size, $orientation);
-        if ($newShip instanceof Wreck) {
-            $this->messages->add('Ship goes beyond the border of the playing field');
-            return false;
-        }
-
-        //Проверяем, не пересекается ли корабль с уже установленными тенями
-        if (!$this->board->canIAddAShip($newShip)) {
-            $this->messages->add('The ships coordinates are not correct. A ship must not cross the boundaries of another ship.');
-            return false;
-        }
         
-        //Пытаемся добавить корабль в хранилище кораблей
-        if (!$this->ships->add($newShip)) {
-            $this->messages->add('The limit of ships of this type is exceeded');
-            return false;
+        if ($this->shipIsComplete($newShip)) {
+            $this->board->addShipShadow($newShip);
+            return true;
         }
-        
-        $this->board->addShipShadow($newShip);
-        return true;
+        return false;
     }
 
     /**
@@ -64,6 +64,7 @@ class GameCommand
      */
     public function allShipSet(): bool
     {
+        $this->state = self::STATE_ALL_SHIPS_SET;
         return $this->ships->isFull();
     }
 
@@ -76,57 +77,130 @@ class GameCommand
     }
 
     /**
-     *
+     * Пытается добавить выстрел на игровую доску
      */
     public function fire(int $y, int $x): bool
     {
-        $status = false;
+        $fireAdd = false;
         
         switch ($this->board->addFire($y, $x)) {
             case (0):
+                //Промах
+                $this->state = self::STATE_MISFIRE;
                 $this->messages->add('You missed!');
-                $status = true;
+                $fireAdd = true;
                 break;
             case (1):
+                //Попадание
+                $this->state = self::STATE_HIT_ON_THE_SHIP;
                 $this->messages->add('Ship is damaged!');
-                $status = true;
+                $fireAdd = true;
                 break;
             default:
+                //Попадание в уже занятую ячейку
+                $this->state = self::STATE_COORDINATES_ALREADY_SET;
                 $this->messages->add('Such coordinates have already been. Repeat the move.');
                 break;
         }
 
+        //Проверяем, уничтожен ли корабль росле выстрела
         if ($this->damageManager->shipIsDestroyed($y, $x)) {
+            $this->state = self::STATE_SHIP_DESTROYED;
             $this->messages->add('Ship is destroyed!');
         }
         
-        return $status;
+        return $fireAdd;
     }
 
-    public function shipsDestroyed(): bool
+    /**
+     *
+     */
+    public function shipsIsDestroyed(): bool
     {
         if ($this->damageManager->allShipsDestroyed()) {
+            $this->state = self::STATE_ALL_SHIPS_DESTROYED;
             $this->messages->add('ALL DESRTOYED!!!!');
             return true;
         }
         return false;
     }
 
+    /**
+     *
+     */
     public function getBoard(): GameBoard
     {
         return $this->board;
     }
     
+    /**
+     *
+     */
     public function getMessages(): GameMessage
     {
         return $this->messages;
     }
 
     /**
+     * Возвращает состояние выполнения команд
+     */
+    public function getState(): int
+    {
+        return $this->state;
+    }
+
+    public function resetState(): void
+    {
+        $this->state = self::STATE_DEFAULT;
+    }
+
+    /**
+     *
+     */
+    private function shipParamsIsCorrect(Ship $ship): bool
+    {
+        if ($ship instanceof Wreck) {
+            $this->state = self::STATE_SHIP_GOES_OUTSIDE_THE_FIELD;
+            $this->messages->add('Ship goes beyond the border of the playing field');
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     *
+     */
+    private function shipShadowIsCorrect(Ship $ship): bool
+    {
+        if (!$this->board->canIAddAShip($ship)) {
+            $this->state = self::STATE_SHIP_COORDINATES_NOT_CORRECT;
+            $this->messages->add('The ships coordinates are not correct. A ship must not cross the boundaries of another ship.');
+            return false;
+        }
+        return true;
+    }
+    
+    /**
+     *
+     */
+    private function shipIsSave(Ship $ship): bool
+    {
+        if (!$this->ships->add($ship)) {
+            $this->state = self::STATE_SHIP_LIMIT_REACHED;
+            $this->messages->add('The limit of ships of this type is exceeded');
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Проверяет, все ли данные для создания корабля готовы
      */
-    private function shipIsComplete(): bool
+    private function shipIsComplete(Ship $ship): bool
     {
-
+        if ($this->shipParamsIsCorrect($ship) && $this->shipShadowIsCorrect($ship) && $this->shipIsSave($ship)) {
+            return true;
+        }
+        return false;
     }
 }

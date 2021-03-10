@@ -9,6 +9,7 @@ include_once 'src/NavalCombat/Router/Controllers/ExitController.php';
 include_once 'src/NavalCombat/Router/Controllers/DefaultController.php';
 include_once 'src/NavalCombat/Message/MessageList.php';
 include_once 'src/NavalCombat/Message/GameMessage.php';
+include_once 'src/NavalCombat/Message/MessageManager.php';
 include_once 'src/NavalCombat/Ship/NamedFixedList.php';
 include_once 'src/NavalCombat/GameCommand/GameCommand.php';
 include_once 'src/NavalCombat/Message/GameMessage.php';
@@ -27,11 +28,26 @@ include_once 'src/NavalCombat/Ship/Battleship.php';
 include_once 'src/NavalCombat/View/View.php';
 include_once 'src/NavalCombat/GameBot/GameBot.php';
 
+try {
+    
+$mm = new MessageManager();
+$mm->add(1, 'Message one');
+$mm->add(2, 'Message two');
+
+echo $mm->get(-3) . PHP_EOL;
+
+var_dump($mm);
+exit();
+
 $router = new GameRouter();
 $router->addController(new NewGameController());
 $router->addController(new ExitController());
 $router->runGame();
 
+
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
 
     //Получить ввод опции
     //Инициализировать новый контроллер если введены другие опции

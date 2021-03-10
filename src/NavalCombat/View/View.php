@@ -17,7 +17,7 @@ class View
     private const EMPTY_CELL = '~';
     private const SHIP_CELL = 'H';
     private const DESTROY_CELL = 'X';
-    private const MISS_CELL = 'o';
+    private const MISS_CELL = '.';
     private const SHADOW_CELL = '*';
     
     private $boardOne;
@@ -27,6 +27,7 @@ class View
     
     private $hideShipsOnTwoBoard = true;
     
+    private $ganeMenu;
     private $message = '';
     
     public function __construct(bool $debugOn = true)
@@ -83,6 +84,24 @@ class View
         $this->inputMessage();
     }
 
+    public function mainMenu(): void
+    {
+        $this->clearDisplay();
+        
+        $this->messagePanel($this->message);
+        
+        $this->menuSpace();
+    }
+    
+    private function menuSpace(): void
+    {
+        for ($i = 0; $i < 11; $i++) {
+            echo '*';
+            echo PHP_EOL;
+        }
+        $this->messagePanelBoard();
+    }
+
     /**
      *
      */
@@ -112,7 +131,7 @@ class View
     /**
      *
      */
-    public function setMessage(string $message)
+    public function setMessage(string $message): void
     {
         $this->message = $message;
     }
