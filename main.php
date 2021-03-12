@@ -34,7 +34,7 @@ $mm = new MessageManager();
 $mm->add(1, 'Message one');
 $mm->add(2, 'Message two');
 
-echo $mm->get(-3) . PHP_EOL;
+echo $mm->get(3) . PHP_EOL;
 
 var_dump($mm);
 exit();
