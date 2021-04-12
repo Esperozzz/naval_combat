@@ -29,15 +29,6 @@ include_once 'src/NavalCombat/View/View.php';
 include_once 'src/NavalCombat/GameBot/GameBot.php';
 
 try {
-    
-$mm = new MessageManager();
-$mm->add(1, 'Message one');
-$mm->add(2, 'Message two');
-
-echo $mm->get(3) . PHP_EOL;
-
-var_dump($mm);
-exit();
 
 $router = new GameRouter();
 $router->addController(new NewGameController());
