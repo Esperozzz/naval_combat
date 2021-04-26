@@ -36,6 +36,9 @@ $router->addController(new ExitController());
 $router->runGame();
 
 
+//$view = new View();
+//$view->menuSpace();
+
 } catch (Exception $e) {
     echo $e->getMessage();
 }

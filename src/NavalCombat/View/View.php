@@ -84,18 +84,32 @@ class View
         $this->inputMessage();
     }
 
-    public function mainMenu(): void
+    /**
+     * Общий вывод меню
+     */
+    public function mainMenu(array $content = []): void
     {
         $this->clearDisplay();
         
         $this->messagePanel($this->message);
         
-        $this->menuSpace();
+        $this->menuSpace($content);
     }
     
-    private function menuSpace(): void
+    /**
+     * Панель основного вывода
+     */
+    private function menuSpace(array $content): void
     {
-        for ($i = 0; $i < 11; $i++) {
+        foreach ($content as $item) {
+            //echo $item;
+            $this->prepareMenuLine($item);
+        }
+        
+        //Вычитаем из высоты панели количество выведенных строк контента
+        $spaceHeight = 11 - count($content);
+        
+        for ($i = 0; $i < $spaceHeight; $i++) {
             echo '*';
             echo PHP_EOL;
         }
@@ -103,17 +117,42 @@ class View
     }
 
     /**
-     *
+     * Подготовка опций игрового меню
      */
-    public function gameMenu(array $menu): void
+    public function prepareMenuOptions(array $menu): array
     {
+        $options = [];
+        
         foreach ($menu as $key => $option) {
-            echo "[{$key}] $option" . PHP_EOL;
+            $options[] = "[{$key}] $option";
         }
+        
+        return $options;
     }
 
     /**
-     *
+     * Подготовка одной строки к добавлению в меню
+     */
+    private function prepareMenuLine(string $text)
+    {
+        $textLength = mb_strlen($text);
+        
+        if ($textLength > self::MAX_CHAR_IN_ONE_LINE) {
+            throw new Exception('Number of characters per line, exceeds maximum length of ' . self::MAX_CHAR_IN_ONE_LINE . ' characters.');
+        }
+        
+        $freeSpace = self::MAX_CHAR_IN_ONE_LINE - $textLength;
+        $balance = $freeSpace % 2;
+        $leftSpaceLength = ($freeSpace - $balance) / 2;
+        $rightSpaceLength = $leftSpaceLength + $balance;
+        $left = str_repeat(' ', $leftSpaceLength);
+        $right = str_repeat(' ', $rightSpaceLength);
+        
+        echo '* ' . $left . $text . $right . " *\n";
+    }
+
+    /**
+     * Полная очистка дисплея перед выводом информации на экран
      */
     public function clearDisplay(): void
     {
@@ -129,7 +168,7 @@ class View
     }
 
     /**
-     *
+     * Подготовка сообщения к выводу
      */
     public function setMessage(string $message): void
     {
@@ -137,7 +176,7 @@ class View
     }
 
     /**
-     *
+     * Сообщение для меню ввода
      */
     public function inputMessage(): void
     {
@@ -145,7 +184,7 @@ class View
     }
 
     /**
-     *
+     * Панель информационных сообщений
      */
     private function messagePanel(string $message): void
     {
@@ -157,7 +196,7 @@ class View
     }
 
     /**
-     *
+     * Подготовка текста сообщения к добавлению на панель сообщений
      */
     private function prepareMessage(string $message): array
     {
@@ -171,11 +210,11 @@ class View
         $nextLineLength = 0;
         $strNum = 0;
         foreach ($messageWords as $word) {
-            $nextLineLength += strlen($word) + 1;
+            $nextLineLength += mb_strlen($word) + 1;
             if ($nextLineLength <= self::MAX_CHAR_IN_ONE_LINE) {
                 $newMessage[$strNum] .= ' ';
             } else {
-                $nextLineLength = strlen($word);
+                $nextLineLength = mb_strlen($word);
                 $strNum++;
             }
             $newMessage[$strNum] .= $word;
@@ -185,7 +224,7 @@ class View
     }
 
     /**
-     *
+     * Вывод подготовленного сообщения в панеле сообщений
      */
     private function message(array $message): void
     {
@@ -203,7 +242,7 @@ class View
     }
 
     /**
-     *
+     * Вывод горизонтальной линии панели сообщения
      */
     private function messagePanelBoard(): void
     {
@@ -213,6 +252,9 @@ class View
         echo PHP_EOL;
     }
     
+    /**
+     * Вывод линии игрового поля по X
+     */
     private function viewXLine(array $arr, $rowKey, bool $shipHidden = false): void
     {
         foreach ($arr as $colKey => $col) {
@@ -220,6 +262,9 @@ class View
         }
     }
     
+    /**
+     * Конвертирование кода состояния игрового поля в символ представления
+     */
     private function convertCellType(int $type, bool $shipHidden): string
     {
         if ($shipHidden) {
@@ -247,6 +292,9 @@ class View
         }
     }
     
+    /**
+     * Вывод цифрового поля игровой доски
+     */
     private function viewTopBoard($rowKey, $colKey, $col, bool $shipHidden): string
     {
         if ($rowKey === self::ASCII_COMMERCIAL_AT) {
@@ -256,15 +304,21 @@ class View
         return $this->convertCellType($col, $shipHidden) . ' ';
     }
     
+    /**
+     * Вывод буквенного поля игровой доски
+     */
     private function viewLeftBoard($key): void
     {
         if ($key === self::ASCII_COMMERCIAL_AT) {
-                echo ' ';
-            } else {
-                echo chr($key) . ' ';
-            }
+            echo ' ';
+        } else {
+            echo chr($key) . ' ';
+        }
     }
 
+    /**
+     * Получить тип ОС
+     */
     private function getOS(): string
     {
         return $_SERVER['OS'] ?? '';

@@ -16,9 +16,9 @@ class DefaultController extends Controller
     {
         $menu = self::getMenu();
         
-        $view->mainMenu();
+        $options = $view->prepareMenuOptions($menu);
         
-        $view->gameMenu($menu);
+        $view->mainMenu($options);
     }
 
     public function execute(): void {}

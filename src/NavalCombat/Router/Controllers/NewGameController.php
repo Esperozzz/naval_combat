@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Контроллер отвечает за ходы новой игры.
+ * Отвечает за подготовку сообщений для 
+ * пользователя и подготовку сообщений для ввода
+ */
 class NewGameController extends Controller
 {
+    
     private $bot;
     private $playerCommand;
     private $computerCommand;
@@ -50,10 +56,7 @@ class NewGameController extends Controller
         
         //Вывод игровых полей
         if ($this->playerShipsSetOnBoard) {
-            $view->twoBoard(
-                $this->playerCommand->getBoard(),
-                $this->computerCommand->getBoard()
-            );
+            $view->twoBoard($this->playerCommand->getBoard(), $this->computerCommand->getBoard());
         } else {
             $view->boardAndShadow($this->playerCommand->getBoard());
         }

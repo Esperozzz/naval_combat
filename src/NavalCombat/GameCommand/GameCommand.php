@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Класс отвечает за действия отдельного игрока
+ */
 class GameCommand
 {
     private const STATE_DEFAULT = 0;
