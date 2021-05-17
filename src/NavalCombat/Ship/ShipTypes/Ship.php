@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class Ship
+ *
+ * Класс хранит информаицию о состоянии корабля
+ */
 abstract class Ship
 {
     protected $size;
@@ -7,7 +12,8 @@ abstract class Ship
     protected $shadow;
 
     /**
-     *
+     * Конструктор принимает массив ячеек относящихся к кораблю и
+     * и массив ячеек тени корабля
      */
     public function __construct(array $decks, array $shadow)
     {

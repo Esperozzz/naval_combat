@@ -6,7 +6,9 @@ class View
     
     private const MESSAGE_PANEL_BOARD_LENGTH = 45;
     private const MESSAGE_PANEL_BOARD_VIEW = '*';
-    
+
+    private const MAX_MENU_PANEL_LINE = 11;
+
     private const MAX_LINES_IN_MESSAGE = 3;
     private const MAX_CHAR_IN_ONE_LINE = 41;
     private const MAX_MESSAGE_LENGTH = 123;
@@ -93,33 +95,36 @@ class View
         
         $this->messagePanel($this->message);
         
-        $this->menuSpace($content);
+        $this->menuPanel($content);
     }
     
     /**
      * Панель основного вывода
      */
-    private function menuSpace(array $content): void
+    private function menuPanel(array $content): void
     {
-        foreach ($content as $item) {
-            //echo $item;
-            $this->prepareMenuLine($item);
+
+        $panelContent = [];
+
+        for ($i = 0; $i < self::MAX_MENU_PANEL_LINE; $i++) {
+            $item = '';
+            if (isset($content[$i])) {
+                $item = $content[$i];
+            }
+            $panelContent[$i] = $this->prepareMenuPanelLine($item);
         }
-        
-        //Вычитаем из высоты панели количество выведенных строк контента
-        $spaceHeight = 11 - count($content);
-        
-        for ($i = 0; $i < $spaceHeight; $i++) {
-            echo '*';
-            echo PHP_EOL;
+
+        foreach ($panelContent as $item) {
+            echo $item . "\n";
         }
+
         $this->messagePanelBoard();
     }
 
     /**
      * Подготовка опций игрового меню
      */
-    public function prepareMenuOptions(array $menu): array
+    public function prepareMenuPanelOptions(array $menu): array
     {
         $options = [];
         
@@ -133,22 +138,14 @@ class View
     /**
      * Подготовка одной строки к добавлению в меню
      */
-    private function prepareMenuLine(string $text)
+    private function prepareMenuPanelLine(string $text)
     {
         $textLength = mb_strlen($text);
-        
         if ($textLength > self::MAX_CHAR_IN_ONE_LINE) {
             throw new Exception('Number of characters per line, exceeds maximum length of ' . self::MAX_CHAR_IN_ONE_LINE . ' characters.');
         }
-        
-        $freeSpace = self::MAX_CHAR_IN_ONE_LINE - $textLength;
-        $balance = $freeSpace % 2;
-        $leftSpaceLength = ($freeSpace - $balance) / 2;
-        $rightSpaceLength = $leftSpaceLength + $balance;
-        $left = str_repeat(' ', $leftSpaceLength);
-        $right = str_repeat(' ', $rightSpaceLength);
-        
-        echo '* ' . $left . $text . $right . " *\n";
+
+        return '* ' . str_pad($text, self::MAX_CHAR_IN_ONE_LINE, ' ', STR_PAD_BOTH) . ' *';
     }
 
     /**
@@ -269,25 +266,17 @@ class View
     {
         if ($shipHidden) {
             switch ($type) {
-                case (1):
-                    return self::MISS_CELL;
-                case (3):
-                    return self::DESTROY_CELL;
-                default:
-                    return self::EMPTY_CELL;
+                case (1): return self::MISS_CELL;
+                case (3): return self::DESTROY_CELL;
+                default:  return self::EMPTY_CELL;
             }
         } else {
             switch ($type) {
-                case (0):
-                    return self::EMPTY_CELL;
-                case (1):
-                    return self::MISS_CELL;
-                case (2):
-                    return self::SHIP_CELL;
-                case (3):
-                    return self::DESTROY_CELL;
-                case (4):
-                    return self::SHADOW_CELL;
+                case (0): return self::EMPTY_CELL;
+                case (1): return self::MISS_CELL;
+                case (2): return self::SHIP_CELL;
+                case (3): return self::DESTROY_CELL;
+                case (4): return self::SHADOW_CELL;
             }
         }
     }

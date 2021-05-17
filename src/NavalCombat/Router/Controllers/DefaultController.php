@@ -16,7 +16,7 @@ class DefaultController extends Controller
     {
         $menu = self::getMenu();
         
-        $options = $view->prepareMenuOptions($menu);
+        $options = $view->prepareMenuPanelOptions($menu);
         
         $view->mainMenu($options);
     }
